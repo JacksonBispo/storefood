@@ -8,4 +8,5 @@ import tech.webfoods.foodStore.model.Address;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
+    Address findBypostalCode(String postalcode);
 }

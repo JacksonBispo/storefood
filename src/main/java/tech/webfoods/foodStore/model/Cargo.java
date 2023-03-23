@@ -1,14 +1,18 @@
 package tech.webfoods.foodStore.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Builder
 public class Cargo {
@@ -19,7 +23,4 @@ public class Cargo {
 
     private String name;
 
-    @JsonBackReference
-    @OneToOne(mappedBy = "cargo", cascade = CascadeType.ALL)
-    private Person employee;
 }

@@ -2,13 +2,12 @@ package tech.webfoods.foodStore.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
@@ -27,13 +26,9 @@ public class Address implements Serializable {
 
     private String complemento;
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private Person person;
-
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private District district;

@@ -2,7 +2,7 @@ package tech.webfoods.foodStore.converters;
 
 
 import tech.webfoods.foodStore.dto.AddressDTO;
-import tech.webfoods.foodStore.dto.PersonDTO;
+import tech.webfoods.foodStore.dto.CustomerDTO;
 import tech.webfoods.foodStore.dto.SaveCustomerDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Customer;
@@ -38,8 +38,8 @@ public class CustomerConverter {
 
     }
 
-    public static PersonDTO toDTO (Customer person){
-        return PersonDTO.builder()
+    public static CustomerDTO toDTO (Customer person){
+        return CustomerDTO.customerDTOBuilder()
                 .name(person.getName())
                 .lastName(person.getLastName())
                 .cpf(person.getCpf())

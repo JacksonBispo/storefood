@@ -1,28 +1,15 @@
 package tech.webfoods.foodStore.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDate;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class SaveEmployeeDTO {
-
-    private String name;
-    private String lastName;
-    private String cpf;
-    private String phone;
-    private String celPhone;
-    private LocalDate birthDate;
-    private String postalCode;
-    private String number;
-    private String placeName;
-    private String complemento;
-    private String bairro;
-    private String localidade;
-    private String uf;
-    private String city;
+@AllArgsConstructor
+@NoArgsConstructor
+public class SaveEmployeeDTO extends  SavePersonDTO{
     private String cargo;
 
 }
