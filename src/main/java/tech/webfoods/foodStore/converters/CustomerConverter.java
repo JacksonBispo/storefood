@@ -1,0 +1,52 @@
+package tech.webfoods.foodStore.converters;
+
+
+import tech.webfoods.foodStore.dto.AddressDTO;
+import tech.webfoods.foodStore.dto.PersonDTO;
+import tech.webfoods.foodStore.dto.SaveCustomerDTO;
+import tech.webfoods.foodStore.model.Address;
+import tech.webfoods.foodStore.model.Customer;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class CustomerConverter {
+
+    public static Customer toEntity(SaveCustomerDTO customerDTO) {
+        List<Address> addressList = new ArrayList<>();
+
+        return Customer.customerBuilder()
+                .id(null)
+                .name(customerDTO.getName())
+                .lastName(customerDTO.getLastName())
+                .cpf(customerDTO.getCpf())
+                .phone(customerDTO.getPhone())
+                .celPhone(customerDTO.getCelPhone())
+                .orders(Collections.emptyList())
+                .birthDate(customerDTO.getBirthDate())
+                .addressList(List.of(
+                        AddressConverter.toEntity(AddressDTO.builder()
+                                .logradouro(customerDTO.getPlaceName())
+                                .complemento(customerDTO.getComplemento())
+                                .localidade(customerDTO.getLocalidade())
+                                .bairro(customerDTO.getBairro())
+                                .cep(customerDTO.getPostalCode())
+                                .uf(customerDTO.getUf())
+                                .build())))
+                .build();
+
+    }
+
+    public static PersonDTO toDTO (Customer person){
+        return PersonDTO.builder()
+                .name(person.getName())
+                .lastName(person.getLastName())
+                .cpf(person.getCpf())
+                .phone(person.getPhone())
+                .celPhone(person.getCelPhone())
+                .birthDate(person.getBirthDate())
+                .addressList(AddressConverter.getAddressesToDto(person.getAddressList()))
+                .build();
+    }
+}
