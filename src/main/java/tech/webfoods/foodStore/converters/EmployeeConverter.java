@@ -2,12 +2,10 @@ package tech.webfoods.foodStore.converters;
 
 
 import tech.webfoods.foodStore.dto.AddressDTO;
-import tech.webfoods.foodStore.dto.PersonDTO;
-import tech.webfoods.foodStore.dto.SaveCustomerDTO;
+import tech.webfoods.foodStore.dto.EmployeeDTO;
 import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Cargo;
-import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.model.Employee;
 
 import java.util.ArrayList;
@@ -44,8 +42,8 @@ public class EmployeeConverter {
 
     }
 
-    public static PersonDTO toDTO (Employee person){
-        return PersonDTO.builder()
+    public static EmployeeDTO toDTO (Employee person){
+        return EmployeeDTO.employeeDTOBuilder()
                 .name(person.getName())
                 .lastName(person.getLastName())
                 .cpf(person.getCpf())
@@ -53,7 +51,7 @@ public class EmployeeConverter {
                 .celPhone(person.getCelPhone())
                 .birthDate(person.getBirthDate())
                 .addressList(AddressConverter.getAddressesToDto(person.getAddressList()))
-                .cargo(CargoDtoConverter.toDTO(person.getCargo()))
+                .cargoDTO(CargoDtoConverter.toDTO(person.getCargo()))
                 .build();
     }
 }

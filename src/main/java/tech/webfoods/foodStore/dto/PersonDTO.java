@@ -1,18 +1,15 @@
 package tech.webfoods.foodStore.dto;
 
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import tech.webfoods.foodStore.model.Cargo;
 import tech.webfoods.foodStore.model.Order;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@Data
 @AllArgsConstructor
-@Builder(toBuilder = true)
-public class PersonDTO {
+@Data
+public abstract class PersonDTO {
     private String name;
     private String lastName;
     private String cpf;
@@ -23,8 +20,15 @@ public class PersonDTO {
 
     private List<AddressDTO> addressList;
 
-    private CargoDTO cargo;
-
     private List<Order> orders;
 
+
+    public PersonDTO(String name, String lastName, String cpf, String phone, String celPhone, LocalDate birthDate) {
+        this.name = name;
+        this.lastName = lastName;
+        this.cpf = cpf;
+        this.phone = phone;
+        this.celPhone = celPhone;
+        this.birthDate = birthDate;
+    }
 }

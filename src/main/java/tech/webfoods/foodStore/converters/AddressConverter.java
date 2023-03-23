@@ -39,7 +39,6 @@ public class AddressConverter {
                 .district(District.builder()
                         .name(address.getBairro())
                         .cidade(City.builder()
-                                .name(address.getLocalidade())
                                 .state(State.builder()
                                         .dsSigla(address.getUf())
                                         .build())

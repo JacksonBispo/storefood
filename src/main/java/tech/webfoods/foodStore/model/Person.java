@@ -1,10 +1,11 @@
 package tech.webfoods.foodStore.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "person_type", discriminatorType = DiscriminatorType.STRING)
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +29,10 @@ public class Person {
     private LocalDate birthDate;
 
 
-    @OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addressList;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cargo_id", referencedColumnName = "id")
-    private Cargo cargo;
+
 
     @OneToMany(mappedBy = "person")
     private List<Order> orders;

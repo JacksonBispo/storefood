@@ -1,11 +1,12 @@
 package tech.webfoods.foodStore.model;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,8 +31,7 @@ public class Customer extends Person{
             String celPhone,
             LocalDate birthDate,
             List<Address> addressList,
-            Cargo cargo,
             List<Order> orders) {
-        super(id, name, lastName, cpf, phone, celPhone, birthDate, addressList, cargo, orders);
+        super(id, name, lastName, cpf, phone, celPhone, birthDate, addressList, orders);
     }
 }
