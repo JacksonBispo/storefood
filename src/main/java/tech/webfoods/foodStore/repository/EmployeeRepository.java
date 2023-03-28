@@ -2,10 +2,9 @@ package tech.webfoods.foodStore.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import tech.webfoods.foodStore.model.State;
+import tech.webfoods.foodStore.model.Employee;
 
 @Repository
-public interface StateRepository extends JpaRepository<State, Long> {
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    State findByDsSigla(String sigla);
 }

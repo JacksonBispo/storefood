@@ -3,9 +3,6 @@ package tech.webfoods.foodStore.converters;
 
 import tech.webfoods.foodStore.dto.AddressDTO;
 import tech.webfoods.foodStore.model.Address;
-import tech.webfoods.foodStore.model.City;
-import tech.webfoods.foodStore.model.District;
-import tech.webfoods.foodStore.model.State;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,8 +13,8 @@ public class AddressConverter {
         return address.stream().map(AddressConverter::toDTO).collect(Collectors.toList());
     }
 
-    public static List<Address> getAddressesToEntity(List<AddressDTO> addressDTO) {
-        return addressDTO.stream().map(AddressConverter::toEntity).collect(Collectors.toList());
+    public static List<Address> getAddressesToEntity(List<Address> addresses) {
+        return addresses.stream().map(AddressConverter::toAddressesCustomer).collect(Collectors.toList());
     }
 
     public static AddressDTO toDTO(Address address) {
@@ -25,9 +22,9 @@ public class AddressConverter {
                 .logradouro(address.getName())
                 .complemento(address.getComplemento())
                 .cep(address.getPostalCode())
-                .bairro(address.getDistrict().getName())
-                .localidade(address.getDistrict().getCidade().getName())
-                .uf(address.getDistrict().getCidade().getState().getDsSigla())
+                .bairro(address.getBairro())
+                .localidade(address.getName())
+                .uf(address.getUf())
                 .build();
     }
 
@@ -36,13 +33,20 @@ public class AddressConverter {
                 .name(address.getLogradouro())
                 .complemento(address.getComplemento())
                 .postalCode(address.getCep())
-                .district(District.builder()
-                        .name(address.getBairro())
-                        .cidade(City.builder()
-                                .state(State.builder()
-                                        .dsSigla(address.getUf())
-                                        .build())
-                                .build()).build())
+                .bairro(address.getBairro())
+                .city(address.getLocalidade())
+                .uf(address.getUf())
+                .build();
+    }
+
+    public static Address toAddressesCustomer(Address address) {
+        return Address.builder()
+                .name(address.getName())
+                .complemento(address.getComplemento())
+                .postalCode(address.getPostalCode())
+                .bairro(address.getBairro())
+                .city(address.getCity())
+                .uf(address.getUf())
                 .build();
     }
 }

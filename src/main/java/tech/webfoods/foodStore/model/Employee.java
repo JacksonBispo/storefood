@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+
 public class Employee extends Person{
 
     public final static String EMPLOYEE = "employee";
@@ -21,8 +22,8 @@ public class Employee extends Person{
     public Employee(
             Long id,
             String name,
-            String lastName, String cpf, String phone, String celPhone, LocalDate birthDate, List<Address> addressList, List<Order> orders, LocalDate admissionDate, Cargo cargo) {
-        super(id, name, lastName, cpf, phone, celPhone, birthDate, addressList, orders);
+            String lastName, String cpf, String phone, String celPhone,  List<Address> addressList, List<Order> orders, LocalDate admissionDate, Cargo cargo) {
+        super(id, name, lastName, cpf, phone, celPhone, addressList, orders);
         this.admissionDate = admissionDate;
         this.cargo = cargo;
     }

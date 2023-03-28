@@ -25,7 +25,7 @@ public class EmployeeConverter {
                 .phone(employeeDTO.getPhone())
                 .celPhone(employeeDTO.getCelPhone())
                 .orders(Collections.emptyList())
-                .birthDate(employeeDTO.getBirthDate())
+                .admissionDate(employeeDTO.getAdmissionDate())
                 .cargo(Cargo.builder()
                         .name(employeeDTO.getCargo())
                         .build())
@@ -49,7 +49,7 @@ public class EmployeeConverter {
                 .cpf(person.getCpf())
                 .phone(person.getPhone())
                 .celPhone(person.getCelPhone())
-                .birthDate(person.getBirthDate())
+                .admissionDate(person.getAdmissionDate())
                 .addressList(AddressConverter.getAddressesToDto(person.getAddressList()))
                 .cargoDTO(CargoDtoConverter.toDTO(person.getCargo()))
                 .build();

@@ -2,14 +2,17 @@ package tech.webfoods.foodStore.service;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import tech.webfoods.foodStore.converters.CustomerConverter;
 import tech.webfoods.foodStore.dto.AddressDTO;
 import tech.webfoods.foodStore.dto.SaveCustomerDTO;
-import tech.webfoods.foodStore.model.*;
+import tech.webfoods.foodStore.model.Address;
+import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.repository.AddressRepository;
-import tech.webfoods.foodStore.repository.CityRepository;
+import tech.webfoods.foodStore.repository.CustomerRepository;
 import tech.webfoods.foodStore.repository.PersonRepository;
-import tech.webfoods.foodStore.repository.StateRepository;
 import tech.webfoods.foodStore.viaCep.ServiceClient;
 
 import java.util.Collections;
@@ -19,13 +22,10 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    private final PersonRepository personRepository;
+    private final CustomerRepository personRepository;
 
     private final ServiceClient serviceClient;
 
-    private final CityRepository cityRepository;
-
-    private final StateRepository stateRepository;
 
     private final AddressRepository addressRepository;
 
@@ -39,35 +39,15 @@ public class CustomerService {
         customerDTO.setUf(addressDTO.getUf());
         customerDTO.setCity(addressDTO.getLocalidade());
 
-        Address address = addressRepository.findBypostalCode(customerDTO.getPostalCode());
-
-
-        State state = stateRepository.findByDsSigla(customerDTO.getUf());
-
-        State newState =  State.builder()
-                .dsSigla(customerDTO.getUf())
-                .build();
-
-      City city = cityRepository.findByName(customerDTO.getLocalidade());
-
-        City newCity = City.builder()
-                .name(customerDTO.getLocalidade())
-                .state(state != null ? state : newState)
-                .build();
-
-        District district = District.builder()
-                .name(customerDTO.getBairro())
-                .cidade(city != null ? city : newCity)
-                .build();
-
-        Address newAddress = Address.builder()
+        Address address = Address.builder()
                 .name(customerDTO.getPlaceName())
                 .number(customerDTO.getNumber())
                 .complemento(customerDTO.getComplemento())
                 .postalCode(customerDTO.getPostalCode())
-                .district(district)
+                .bairro(customerDTO.getBairro())
+                .city(customerDTO.getCity())
+                .uf(customerDTO.getUf())
                 .build();
-
 
         Customer customer = Customer.customerBuilder()
                 .id(null)
@@ -78,10 +58,16 @@ public class CustomerService {
                 .celPhone(customerDTO.getCelPhone())
                 .orders(Collections.emptyList())
                 .birthDate(customerDTO.getBirthDate())
-                .addressList(List.of(address != null ? address : newAddress))
+                .addressList(List.of(address))
                 .build();
-                 newAddress.setPerson(customer);
-
+        address.setPerson(customer);
      return personRepository.save(customer);
     }
+
+    public Page<Customer> getAllPersons(Pageable pegPageable) {
+        var list = personRepository.findAll(pegPageable).map(CustomerConverter::toCustomerDTO);
+        return list;
+    }
+
+
 }

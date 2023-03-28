@@ -1,5 +1,7 @@
 package tech.webfoods.foodStore.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +15,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class SaveCustomerDTO extends SavePersonDTO{
 
-
+    @NotNull
+    @Past
     private LocalDate birthDate;
-
 
 }

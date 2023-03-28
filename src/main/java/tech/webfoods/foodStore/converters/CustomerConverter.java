@@ -4,18 +4,14 @@ package tech.webfoods.foodStore.converters;
 import tech.webfoods.foodStore.dto.AddressDTO;
 import tech.webfoods.foodStore.dto.CustomerDTO;
 import tech.webfoods.foodStore.dto.SaveCustomerDTO;
-import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Customer;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CustomerConverter {
 
     public static Customer toEntity(SaveCustomerDTO customerDTO) {
-        List<Address> addressList = new ArrayList<>();
-
         return Customer.customerBuilder()
                 .id(null)
                 .name(customerDTO.getName())
@@ -37,6 +33,21 @@ public class CustomerConverter {
                 .build();
 
     }
+
+    public static Customer toCustomerDTO(Customer person){
+        return Customer.customerBuilder()
+        .name(person.getName())
+                .lastName(person.getLastName())
+                .cpf(person.getCpf())
+                .phone(person.getPhone())
+                .celPhone(person.getCelPhone())
+                .orders(Collections.emptyList())
+                .birthDate(person.getBirthDate())
+                .addressList(
+                        AddressConverter.getAddressesToEntity(person.getAddressList()))
+                .build();
+    }
+
 
     public static CustomerDTO toDTO (Customer person){
         return CustomerDTO.customerDTOBuilder()

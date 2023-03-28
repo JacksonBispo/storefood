@@ -25,12 +25,15 @@ public class Address implements Serializable {
     private String postalCode;
 
     private String complemento;
+
+    private String bairro;
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private Person person;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private District district;
+    private String city;
+
+    private String uf;
 
 }

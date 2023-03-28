@@ -1,13 +1,17 @@
 package tech.webfoods.foodStore.service;
 
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.dto.AddressDTO;
 import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
-import tech.webfoods.foodStore.model.*;
-import tech.webfoods.foodStore.repository.*;
+import tech.webfoods.foodStore.model.Address;
+import tech.webfoods.foodStore.model.Cargo;
+import tech.webfoods.foodStore.model.Employee;
+import tech.webfoods.foodStore.repository.AddressRepository;
+import tech.webfoods.foodStore.repository.CargoRepository;
+import tech.webfoods.foodStore.repository.EmployeeRepository;
 import tech.webfoods.foodStore.viaCep.ServiceClient;
 
 import java.time.LocalDate;
@@ -18,11 +22,7 @@ import java.util.List;
 @Service
 public class EmployeeService {
 
-    private final PersonRepository personRepository;
-
-    private final CityRepository  cityRepository;
-
-    private final StateRepository stateRepository;
+    private final EmployeeRepository personRepository;
 
     private final AddressRepository addressRepository;
 
@@ -30,72 +30,49 @@ public class EmployeeService {
 
     private final ServiceClient serviceClient;
 
-    public Employee save(SaveEmployeeDTO employeeDTO){
+    public Employee save(@Valid SaveEmployeeDTO employeeDTO){
 
         AddressDTO addressDTO = serviceClient.buscaEnderecoPorCep(employeeDTO.getPostalCode());
         employeeDTO.setPlaceName(addressDTO.getLogradouro());
         employeeDTO.setComplemento(addressDTO.getComplemento());
         employeeDTO.setBairro(addressDTO.getBairro());
-        employeeDTO.setLocalidade(addressDTO.getLocalidade());
         employeeDTO.setUf(addressDTO.getUf());
         employeeDTO.setCity(addressDTO.getLocalidade());
-
-      Address address = addressRepository.findBypostalCode(employeeDTO.getPostalCode());
-
-        State state = stateRepository.findByDsSigla(employeeDTO.getUf());
-
-           State newState =  State.builder()
-                    .dsSigla(employeeDTO.getUf())
-                    .build();
-
-      City city = cityRepository.findByName(employeeDTO.getLocalidade());
-
-           City newCity = City.builder()
-                    .name(employeeDTO.getLocalidade())
-                    .state(state != null ? state : newState)
-                    .build();
-
-        District district = District.builder()
-                .name(employeeDTO.getBairro())
-                .cidade(city != null ? city : newCity)
-                .build();
+        Employee employee = null;
 
 
-        Address newAddress = Address.builder()
+
+        Address address = Address.builder()
                 .name(employeeDTO.getPlaceName())
                 .number(employeeDTO.getNumber())
                 .complemento(employeeDTO.getComplemento())
                 .postalCode(employeeDTO.getPostalCode())
-                .district(district)
+                .bairro(employeeDTO.getBairro())
+                .city(employeeDTO.getCity())
+                .uf(employeeDTO.getUf())
                 .build();
 
-       Cargo cargo = cargoRepository.findByName(employeeDTO.getCargo());
+            employee = Employee.employeeBuilder()
+                    .id(null)
+                    .name(employeeDTO.getName())
+                    .lastName(employeeDTO.getLastName())
+                    .cpf(employeeDTO.getCpf())
+                    .phone(employeeDTO.getPhone())
+                    .celPhone(employeeDTO.getCelPhone())
+                    .orders(Collections.emptyList())
+                    .admissionDate(employeeDTO.getAdmissionDate())
+                    .admissionDate(LocalDate.now())
+                    .addressList(List.of(address))
+                    .build();
 
-        Cargo newCargo = Cargo.builder()
+                address.setPerson(employee);
+
+            Cargo newCargo = Cargo.builder()
                 .name(employeeDTO.getCargo())
                 .build();
-
-       Employee employee = Employee.employeeBuilder()
-                .id(null)
-                .name(employeeDTO.getName())
-                .lastName(employeeDTO.getLastName())
-                .cpf(employeeDTO.getCpf())
-                .phone(employeeDTO.getPhone())
-                .celPhone(employeeDTO.getCelPhone())
-                .orders(Collections.emptyList())
-                .birthDate(employeeDTO.getBirthDate())
-               .admissionDate(LocalDate.now())
-               .cargo(cargo != null ? cargo : newCargo)
-               .addressList(List.of(address != null ? address : newAddress))
-               .build();
-                newAddress.setPerson(employee);
-
-        EmployeeConverter.toEntity(employeeDTO);
-
-        return personRepository.save(employee);
+            employee.setCargo(newCargo);
+            return personRepository.save(employee);
     }
-
-
 
 
 
