@@ -41,4 +41,10 @@ public class PersonResource {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping(value = "/employee/employers")
+    public ResponseEntity<Page<EmployeeDTO>> listEmployee(@PageableDefault(size = 10, sort = {"name"})Pageable pageable){
+        var list  = employeeService.getAllEmployees(pageable).map(EmployeeConverter::toDTO);
+        return ResponseEntity.ok(list);
+    }
+
 }

@@ -6,6 +6,7 @@ import tech.webfoods.foodStore.dto.EmployeeDTO;
 import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Cargo;
+import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.model.Employee;
 
 import java.util.ArrayList;
@@ -52,6 +53,21 @@ public class EmployeeConverter {
                 .admissionDate(person.getAdmissionDate())
                 .addressList(AddressConverter.getAddressesToDto(person.getAddressList()))
                 .cargoDTO(CargoDtoConverter.toDTO(person.getCargo()))
+                .build();
+    }
+
+    public static Employee toEmployeeEntity(Employee person){
+        return Employee.employeeBuilder()
+                .name(person.getName())
+                .lastName(person.getLastName())
+                .cpf(person.getCpf())
+                .phone(person.getPhone())
+                .celPhone(person.getCelPhone())
+                .orders(Collections.emptyList())
+                .admissionDate(person.getAdmissionDate())
+                .addressList(
+                        AddressConverter.getAddressesToEntity(person.getAddressList()))
+                .cargo(person.getCargo())
                 .build();
     }
 }

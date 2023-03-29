@@ -34,7 +34,7 @@ public class CustomerConverter {
 
     }
 
-    public static Customer toCustomerDTO(Customer person){
+    public static Customer toCustomerEntity(Customer person){
         return Customer.customerBuilder()
         .name(person.getName())
                 .lastName(person.getLastName())

@@ -65,7 +65,7 @@ public class CustomerService {
     }
 
     public Page<Customer> getAllPersons(Pageable pegPageable) {
-        var list = personRepository.findAll(pegPageable).map(CustomerConverter::toCustomerDTO);
+        var list = personRepository.findAll(pegPageable).map(CustomerConverter::toCustomerEntity);
         return list;
     }
 

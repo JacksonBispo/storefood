@@ -29,4 +29,7 @@ public class Product {
     private List<Ingredient> ingredients = new ArrayList<>();
 
     private BigDecimal price;
+
+    @ManyToOne(targetEntity = Product.class,optional = false)
+    private Category category;
 }

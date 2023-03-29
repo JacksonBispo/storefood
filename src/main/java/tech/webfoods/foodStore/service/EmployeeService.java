@@ -3,8 +3,12 @@ package tech.webfoods.foodStore.service;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.dto.AddressDTO;
+import tech.webfoods.foodStore.dto.EmployeeDTO;
 import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Cargo;
@@ -71,9 +75,13 @@ public class EmployeeService {
                 .name(employeeDTO.getCargo())
                 .build();
             employee.setCargo(newCargo);
+            cargoRepository.save(employee.getCargo());
             return personRepository.save(employee);
     }
 
-
+    public Page<Employee> getAllEmployees(Pageable pegPageable) {
+        var list = personRepository.findAll(pegPageable).map(EmployeeConverter::toEmployeeEntity);
+        return list;
+    }
 
 }
