@@ -13,7 +13,7 @@ public class ListCategory {
 
     private CategoryRepository categoryRepository;
 
-    public List<Category> execute(){
-       return categoryRepository.findAll();
+    public List<Category> execute() {
+        return categoryRepository.findAll();
     }
 }

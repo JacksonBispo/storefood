@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 
-public class Employee extends Person{
+public class Employee extends Person {
 
     public final static String EMPLOYEE = "employee";
     private LocalDate admissionDate;
@@ -22,7 +22,7 @@ public class Employee extends Person{
     public Employee(
             Long id,
             String name,
-            String lastName, String cpf, String phone, String celPhone,  List<Address> addressList, List<Order> orders, LocalDate admissionDate, Cargo cargo) {
+            String lastName, String cpf, String phone, String celPhone, List<Address> addressList, List<Order> orders, LocalDate admissionDate, Cargo cargo) {
         super(id, name, lastName, cpf, phone, celPhone, addressList, orders);
         this.admissionDate = admissionDate;
         this.cargo = cargo;
@@ -32,10 +32,5 @@ public class Employee extends Person{
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "cargo_id", referencedColumnName = "id")
     private Cargo cargo;
-
-
-
-
-    public Employee(){}
 
 }

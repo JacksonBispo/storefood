@@ -14,7 +14,7 @@ public class GetAllProducts {
 
     private final ProductRepository productRepository;
 
-    public Page<Product> execute(Pageable pageable){
+    public Page<Product> execute(Pageable pageable) {
         return productRepository.findAll(pageable).map(ProductConverter::toEntityProduct);
     }
 }

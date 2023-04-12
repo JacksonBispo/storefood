@@ -8,5 +8,4 @@ import tech.webfoods.foodStore.model.Customer;
 public interface PersonRepository extends JpaRepository<Customer, Long> {
 
 
-
 }

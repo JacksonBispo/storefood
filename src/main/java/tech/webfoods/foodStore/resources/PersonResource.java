@@ -31,27 +31,27 @@ public class PersonResource {
 
 
     @PostMapping(value = "/customer/save")
-    public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO){
-       var customer = saveCustomer.save(customerDTO);
-       return ResponseEntity.ok(CustomerConverter.toDTO(customer));
+    public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO) {
+        var customer = saveCustomer.save(customerDTO);
+        return ResponseEntity.ok(CustomerConverter.toDTO(customer));
     }
 
     @PostMapping(value = "/employee/save")
-    public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody @Valid SaveEmployeeDTO saveEmployeeDTO){
+    public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody @Valid SaveEmployeeDTO saveEmployeeDTO) {
         var employee = employeeService.execute(saveEmployeeDTO);
         return ResponseEntity.ok(EmployeeConverter.toDTO(employee));
     }
 
     @GetMapping(value = "/customer/customers")
     public ResponseEntity<Page<CustomerDTO>> listCustomer(
-            @PageableDefault(size = 10, sort = {"name"})Pageable pageable){
-        var list  = getAllCustomers.execute(pageable).map(CustomerConverter::toDTO);
+            @PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
+        var list = getAllCustomers.execute(pageable).map(CustomerConverter::toDTO);
         return ResponseEntity.ok(list);
     }
 
     @GetMapping(value = "/employee/employers")
-    public ResponseEntity<Page<EmployeeDTO>> listEmployee(@PageableDefault(size = 10, sort = {"name"})Pageable pageable){
-        var list  = getAllEmployee.execute(pageable).map(EmployeeConverter::toDTO);
+    public ResponseEntity<Page<EmployeeDTO>> listEmployee(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
+        var list = getAllEmployee.execute(pageable).map(EmployeeConverter::toDTO);
         return ResponseEntity.ok(list);
     }
 

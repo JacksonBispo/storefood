@@ -22,7 +22,7 @@ public class SaveCustomer {
     private final ServiceClient serviceClient;
 
 
-    public Customer save(SaveCustomerDTO customerDTO){
+    public Customer save(SaveCustomerDTO customerDTO) {
 
         AddressDTO addressDTO = serviceClient.buscaEnderecoPorCep(customerDTO.getPostalCode());
         customerDTO.setPlaceName(addressDTO.getLogradouro());
@@ -54,9 +54,8 @@ public class SaveCustomer {
                 .addressList(List.of(address))
                 .build();
         address.setPerson(customer);
-     return personRepository.save(customer);
+        return personRepository.save(customer);
     }
-
 
 
 }

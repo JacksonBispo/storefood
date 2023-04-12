@@ -42,7 +42,7 @@ public class EmployeeConverter {
 
     }
 
-    public static EmployeeDTO toDTO (Employee person){
+    public static EmployeeDTO toDTO(Employee person) {
         return EmployeeDTO.employeeDTOBuilder()
                 .name(person.getName())
                 .lastName(person.getLastName())
@@ -55,7 +55,7 @@ public class EmployeeConverter {
                 .build();
     }
 
-    public static Employee toEmployeeEntity(Employee person){
+    public static Employee toEmployeeEntity(Employee person) {
         return Employee.employeeBuilder()
                 .name(person.getName())
                 .lastName(person.getLastName())

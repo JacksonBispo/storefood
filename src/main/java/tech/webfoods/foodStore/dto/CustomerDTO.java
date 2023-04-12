@@ -14,6 +14,7 @@ public class CustomerDTO extends PersonDTO {
 
 
     private LocalDate birthDate;
+
     @Builder(builderMethodName = "customerDTOBuilder")
     public CustomerDTO(String name, String lastName, String cpf, String phone, String celPhone, List<AddressDTO> addressList, List<Order> orders, LocalDate birthDate) {
         super(name, lastName, cpf, phone, celPhone, addressList, orders);

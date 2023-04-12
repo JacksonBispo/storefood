@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaveEmployeeDTO extends SavePersonDTO{
+public class SaveEmployeeDTO extends SavePersonDTO {
     private String cargo;
 
     private LocalDate admissionDate;

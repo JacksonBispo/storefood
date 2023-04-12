@@ -33,7 +33,6 @@ public class Person {
     private List<Address> addressList;
 
 
-
     @OneToMany(mappedBy = "person")
     private List<Order> orders;
 

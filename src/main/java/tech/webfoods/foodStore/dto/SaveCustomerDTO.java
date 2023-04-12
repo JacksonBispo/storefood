@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaveCustomerDTO extends SavePersonDTO{
+public class SaveCustomerDTO extends SavePersonDTO {
 
     @NotNull
     @Past

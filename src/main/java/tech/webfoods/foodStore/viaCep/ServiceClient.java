@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import tech.webfoods.foodStore.dto.AddressDTO;
 
 @Component
-@FeignClient(url = "https://viacep.com.br/ws/" , name = "viacep")
+@FeignClient(url = "https://viacep.com.br/ws/", name = "viacep")
 public interface ServiceClient {
 
-  @GetMapping("{cep}/json")
-  AddressDTO buscaEnderecoPorCep(@PathVariable("cep") String cep);
+    @GetMapping("{cep}/json")
+    AddressDTO buscaEnderecoPorCep(@PathVariable("cep") String cep);
 
 }

@@ -10,14 +10,14 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class FoodStoreApplication implements CommandLineRunner {
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(FoodStoreApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(FoodStoreApplication.class, args);
 
 
-	}
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
+    @Override
+    public void run(String... args) {
 
-	}
+    }
 }

@@ -13,7 +13,7 @@ public class SaveCategory {
 
     private CategoryRepository categoryRepository;
 
-    public Category execute(CategoryDTO categoryDTO){
-       return categoryRepository.save(CategoryConverter.toEntity(categoryDTO));
+    public Category execute(CategoryDTO categoryDTO) {
+        return categoryRepository.save(CategoryConverter.toEntity(categoryDTO));
     }
 }

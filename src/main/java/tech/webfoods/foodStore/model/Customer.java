@@ -13,17 +13,12 @@ import java.util.List;
 @DiscriminatorValue(Customer.CUSTOMER)
 @Getter
 @Setter
-public class Customer extends Person{
+public class Customer extends Person {
 
     private LocalDate birthDate;
 
 
     public static final String CUSTOMER = "customer";
-
-
-    public Customer() {
-    }
-
 
     @Builder(builderMethodName = "customerBuilder")
     public Customer(Long id, String name, String lastName, String cpf, String phone, String celPhone, List<Address> addressList, List<Order> orders, LocalDate birthDate) {

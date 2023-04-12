@@ -18,7 +18,7 @@ public class CategoryResource {
 
 
     @PostMapping(value = "/category/save")
-    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody @Valid CategoryDTO categoryDTO){
+    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
         var category = saveCategory.execute(categoryDTO);
         return ResponseEntity.ok(CategoryConverter.toDTO(category));
     }

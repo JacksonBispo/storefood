@@ -19,14 +19,12 @@ public class SaveProduct {
 
     private final IngredientRepository ingredientRepository;
 
-    private final CategoryRepository categoryRepository;
-
-    public ResponseEntity<ProductDTO> execute(ProductDTO productDTO){
-        productDTO.getIngredients().stream().forEach(ingredientDTO -> {
+    public ResponseEntity<ProductDTO> execute(ProductDTO productDTO) {
+        productDTO.getIngredients().forEach(ingredientDTO -> {
             ingredientRepository.save(IngredienteConverter.toEntity(ingredientDTO));
         });
 
-        Product product = productRepository.save(ProductConverter.toEntity(productDTO));
+        productRepository.save(ProductConverter.toEntity(productDTO));
 
         return ResponseEntity.ok().build();
     }

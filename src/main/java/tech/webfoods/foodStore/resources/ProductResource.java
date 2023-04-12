@@ -28,9 +28,9 @@ public class ProductResource {
     }
 
     @GetMapping(value = "product/list")
-    public ResponseEntity <Page<ProductDTO>> getAllProducts
-            (@PageableDefault(size = 10, sort = {"description"}) Pageable pageable){
-        var list =  getAllProducts.execute(pageable).map(ProductConverter::toDTO);
+    public ResponseEntity<Page<ProductDTO>> getAllProducts
+            (@PageableDefault(sort = {"description"}) Pageable pageable) {
+        var list = getAllProducts.execute(pageable).map(ProductConverter::toDTO);
         return ResponseEntity.ok(list);
 
     }
