@@ -1,18 +1,13 @@
-package tech.webfoods.foodStore.service;
+package tech.webfoods.foodStore.usecase;
 
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import tech.webfoods.foodStore.converters.CustomerConverter;
 import tech.webfoods.foodStore.dto.AddressDTO;
 import tech.webfoods.foodStore.dto.SaveCustomerDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Customer;
-import tech.webfoods.foodStore.repository.AddressRepository;
 import tech.webfoods.foodStore.repository.CustomerRepository;
-import tech.webfoods.foodStore.repository.PersonRepository;
 import tech.webfoods.foodStore.viaCep.ServiceClient;
 
 import java.util.Collections;
@@ -20,17 +15,15 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class CustomerService {
+public class SaveCustomer {
 
     private final CustomerRepository personRepository;
 
     private final ServiceClient serviceClient;
 
 
-    private final AddressRepository addressRepository;
-
-
     public Customer save(SaveCustomerDTO customerDTO){
+
         AddressDTO addressDTO = serviceClient.buscaEnderecoPorCep(customerDTO.getPostalCode());
         customerDTO.setPlaceName(addressDTO.getLogradouro());
         customerDTO.setComplemento(addressDTO.getComplemento());
@@ -64,10 +57,6 @@ public class CustomerService {
      return personRepository.save(customer);
     }
 
-    public Page<Customer> getAllPersons(Pageable pegPageable) {
-        var list = personRepository.findAll(pegPageable).map(CustomerConverter::toCustomerEntity);
-        return list;
-    }
 
 
 }
