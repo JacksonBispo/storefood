@@ -18,6 +18,7 @@ import java.io.Serializable;
 @Table(name = "TB_ADDRESS")
 public class Address implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 2662999979467455549L;
 
     @Id
