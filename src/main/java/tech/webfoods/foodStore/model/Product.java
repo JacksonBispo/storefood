@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 @Builder(toBuilder = true)
 @Table(name = "TB_PRODUTOS")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
@@ -22,7 +24,7 @@ public class Product {
 
     private String description;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="product_ingredient", joinColumns=
             {@JoinColumn(name="product_id")}, inverseJoinColumns=
             {@JoinColumn(name="ingredient_id")})
@@ -30,6 +32,7 @@ public class Product {
 
     private BigDecimal price;
 
-    @ManyToOne(targetEntity = Product.class,optional = false)
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private Category category;
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @Builder(toBuilder = true)
 @Table(name = "TB_INGREDIENTS")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Ingredient {
 
     @Id

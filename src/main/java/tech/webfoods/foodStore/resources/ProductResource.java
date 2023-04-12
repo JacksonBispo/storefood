@@ -1,14 +1,15 @@
- package tech.webfoods.foodStore.resources;
+package tech.webfoods.foodStore.resources;
 
- import lombok.AllArgsConstructor;
- import org.springframework.http.ResponseEntity;
- import org.springframework.web.bind.annotation.CrossOrigin;
- import org.springframework.web.bind.annotation.RequestMapping;
- import org.springframework.web.bind.annotation.RestController;
- import tech.webfoods.foodStore.dto.ProductDTO;
- import tech.webfoods.foodStore.model.Product;
- import tech.webfoods.foodStore.service.CustomerService;
- import tech.webfoods.foodStore.service.EmployeeService;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import tech.webfoods.foodStore.converters.ProductConverter;
+import tech.webfoods.foodStore.dto.ProductDTO;
+import tech.webfoods.foodStore.usecase.GetAllProducts;
+import tech.webfoods.foodStore.usecase.SaveProduct;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -17,12 +18,21 @@
 public class ProductResource {
 
 
+    private final SaveProduct saveProduct;
 
-    public ResponseEntity<Product> saveProduct(ProductDTO productDTO){
+    private final GetAllProducts getAllProducts;
 
-        return null;
+    @PostMapping(value = "/product/save")
+    public ResponseEntity<ProductDTO> saveProduct(@RequestBody ProductDTO productDTO) {
+        return saveProduct.execute(productDTO);
     }
 
+    @GetMapping(value = "product/list")
+    public ResponseEntity <Page<ProductDTO>> getAllProducts
+            (@PageableDefault(size = 10, sort = {"description"}) Pageable pageable){
+        var list =  getAllProducts.execute(pageable).map(ProductConverter::toDTO);
+        return ResponseEntity.ok(list);
 
+    }
 
 }

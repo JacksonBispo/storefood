@@ -1,14 +1,10 @@
-package tech.webfoods.foodStore.service;
+package tech.webfoods.foodStore.usecase;
 
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.dto.AddressDTO;
-import tech.webfoods.foodStore.dto.EmployeeDTO;
 import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Cargo;
@@ -24,17 +20,15 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class EmployeeService {
+public class SaveEmployee {
 
     private final EmployeeRepository personRepository;
-
-    private final AddressRepository addressRepository;
 
     private final CargoRepository cargoRepository;
 
     private final ServiceClient serviceClient;
 
-    public Employee save(@Valid SaveEmployeeDTO employeeDTO){
+    public Employee execute(@Valid SaveEmployeeDTO employeeDTO) {
 
         AddressDTO addressDTO = serviceClient.buscaEnderecoPorCep(employeeDTO.getPostalCode());
         employeeDTO.setPlaceName(addressDTO.getLogradouro());
@@ -42,9 +36,7 @@ public class EmployeeService {
         employeeDTO.setBairro(addressDTO.getBairro());
         employeeDTO.setUf(addressDTO.getUf());
         employeeDTO.setCity(addressDTO.getLocalidade());
-        Employee employee = null;
-
-
+        Employee employee;
 
         Address address = Address.builder()
                 .name(employeeDTO.getPlaceName())
@@ -56,32 +48,28 @@ public class EmployeeService {
                 .uf(employeeDTO.getUf())
                 .build();
 
-            employee = Employee.employeeBuilder()
-                    .id(null)
-                    .name(employeeDTO.getName())
-                    .lastName(employeeDTO.getLastName())
-                    .cpf(employeeDTO.getCpf())
-                    .phone(employeeDTO.getPhone())
-                    .celPhone(employeeDTO.getCelPhone())
-                    .orders(Collections.emptyList())
-                    .admissionDate(employeeDTO.getAdmissionDate())
-                    .admissionDate(LocalDate.now())
-                    .addressList(List.of(address))
-                    .build();
+        employee = Employee.employeeBuilder()
+                .id(null)
+                .name(employeeDTO.getName())
+                .lastName(employeeDTO.getLastName())
+                .cpf(employeeDTO.getCpf())
+                .phone(employeeDTO.getPhone())
+                .celPhone(employeeDTO.getCelPhone())
+                .orders(Collections.emptyList())
+                .admissionDate(employeeDTO.getAdmissionDate())
+                .admissionDate(LocalDate.now())
+                .addressList(List.of(address))
+                .build();
 
-                address.setPerson(employee);
+        address.setPerson(employee);
 
-            Cargo newCargo = Cargo.builder()
+        Cargo newCargo = Cargo.builder()
                 .name(employeeDTO.getCargo())
                 .build();
-            employee.setCargo(newCargo);
-            cargoRepository.save(employee.getCargo());
-            return personRepository.save(employee);
+        employee.setCargo(newCargo);
+        cargoRepository.save(employee.getCargo());
+        return personRepository.save(employee);
     }
 
-    public Page<Employee> getAllEmployees(Pageable pegPageable) {
-        var list = personRepository.findAll(pegPageable).map(EmployeeConverter::toEmployeeEntity);
-        return list;
-    }
 
 }
