@@ -6,7 +6,6 @@ import tech.webfoods.foodStore.dto.EmployeeDTO;
 import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Cargo;
-import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.model.Employee;
 
 import java.util.ArrayList;
