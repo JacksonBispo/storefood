@@ -9,6 +9,7 @@ import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Cargo;
 import tech.webfoods.foodStore.model.Employee;
+import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.repository.AddressRepository;
 import tech.webfoods.foodStore.repository.CargoRepository;
 import tech.webfoods.foodStore.repository.EmployeeRepository;
@@ -55,6 +56,7 @@ public class SaveEmployee {
                 .cpf(employeeDTO.getCpf())
                 .phone(employeeDTO.getPhone())
                 .celPhone(employeeDTO.getCelPhone())
+                .status(Status.ACTIVE)
                 .orders(Collections.emptyList())
                 .admissionDate(employeeDTO.getAdmissionDate())
                 .admissionDate(LocalDate.now())
