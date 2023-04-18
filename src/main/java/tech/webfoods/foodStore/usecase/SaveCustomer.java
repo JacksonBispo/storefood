@@ -4,9 +4,11 @@ package tech.webfoods.foodStore.usecase;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.dto.AddressDTO;
+import tech.webfoods.foodStore.dto.CustomerDTO;
 import tech.webfoods.foodStore.dto.SaveCustomerDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Customer;
+import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.repository.CustomerRepository;
 import tech.webfoods.foodStore.viaCep.ServiceClient;
 
@@ -49,6 +51,7 @@ public class SaveCustomer {
                 .cpf(customerDTO.getCpf())
                 .phone(customerDTO.getPhone())
                 .celPhone(customerDTO.getCelPhone())
+                .status(Status.fromValue("ATIVO"))
                 .orders(Collections.emptyList())
                 .birthDate(customerDTO.getBirthDate())
                 .addressList(List.of(address))

@@ -27,6 +27,8 @@ public class Person {
     private String cpf;
     private String phone;
     private String celPhone;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL)
@@ -35,5 +37,6 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     private List<Order> orders;
+
 
 }

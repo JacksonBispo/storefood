@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.model.Employee;
+import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.repository.EmployeeRepository;
 import tech.webfoods.foodStore.viaCep.ServiceClient;
 
@@ -16,7 +17,7 @@ public class GetAllEmployee {
     private final EmployeeRepository personRepository;
 
     public Page<Employee> execute(Pageable pegPageable) {
-        return personRepository.findAll(pegPageable).map(EmployeeConverter::toEmployeeEntity);
+        return personRepository.findByStatus(pegPageable, Status.ACTIVE).map(EmployeeConverter::toEmployeeEntity);
     }
 
 
