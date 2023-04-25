@@ -7,13 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 import tech.webfoods.foodStore.converters.CustomerConverter;
 import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.dto.*;
-import tech.webfoods.foodStore.usecase.GetAllCustomers;
-import tech.webfoods.foodStore.usecase.GetAllEmployee;
-import tech.webfoods.foodStore.usecase.SaveCustomer;
-import tech.webfoods.foodStore.usecase.SaveEmployee;
+import tech.webfoods.foodStore.usecase.*;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -25,15 +24,18 @@ public class PersonResource {
 
     private final GetAllCustomers getAllCustomers;
 
+    private final DetailCustomer detailCustomer;
+
     private final GetAllEmployee getAllEmployee;
 
     private final SaveEmployee employeeService;
 
 
     @PostMapping(value = "/customer/save")
-    public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO) {
+    public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO, UriComponentsBuilder uriBuilder) {
         var customer = saveCustomer.save(customerDTO);
-        return ResponseEntity.ok(CustomerConverter.toDTO(customer));
+        var uri = uriBuilder.path("/customer/save/{id}").buildAndExpand(customer.getId()).toUri();
+        return ResponseEntity.created(uri).body(CustomerConverter.toDTO(customer));
     }
 
     @PostMapping(value = "/employee/save")
@@ -47,6 +49,12 @@ public class PersonResource {
             @PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
         var list = getAllCustomers.execute(pageable).map(CustomerConverter::toDTO);
         return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/customer/customers/{id}")
+    public ResponseEntity<CustomerDTO> detailCustomer(@PathVariable Long id) {
+        var customer = detailCustomer. detailCustomer(id);
+        return ResponseEntity.ok(customer);
     }
 
     @GetMapping(value = "/employee/employers")

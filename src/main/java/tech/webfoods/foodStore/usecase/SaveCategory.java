@@ -1,5 +1,6 @@
 package tech.webfoods.foodStore.usecase;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.converters.CategoryConverter;
@@ -13,7 +14,7 @@ public class SaveCategory {
 
     private CategoryRepository categoryRepository;
 
-    public Category execute(CategoryDTO categoryDTO) {
+    public Category execute(@Valid CategoryDTO categoryDTO) {
         return categoryRepository.save(CategoryConverter.toEntity(categoryDTO));
     }
 }
