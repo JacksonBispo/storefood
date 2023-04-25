@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.dto.AddressDTO;
 import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
+import tech.webfoods.foodStore.exceptions.FieldNotValidException;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Cargo;
 import tech.webfoods.foodStore.model.Employee;
@@ -69,6 +70,13 @@ public class SaveEmployee {
         employee.setCargo(newCargo);
         cargoRepository.save(employee.getCargo());
         return personRepository.save(employee);
+    }
+
+    private void validateFields(SaveEmployeeDTO employeeDTO) {
+
+        if(employeeDTO.getName().isEmpty()){
+            throw new FieldNotValidException("Campo invalido");
+        }
     }
 
 

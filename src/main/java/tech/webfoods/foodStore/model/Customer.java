@@ -4,6 +4,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.List;
 @DiscriminatorValue(Customer.CUSTOMER)
 @Getter
 @Setter
+@NoArgsConstructor
 public class Customer extends Person {
 
     private LocalDate birthDate;
