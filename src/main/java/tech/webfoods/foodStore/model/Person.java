@@ -30,6 +30,9 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
+
 
     @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Address> addressList;

@@ -23,8 +23,19 @@ public class Customer extends Person {
     public static final String CUSTOMER = "customer";
 
     @Builder(builderMethodName = "customerBuilder")
-    public Customer(Long id, String name, String lastName, String cpf, String phone, String celPhone, List<Address> addressList, List<Order> orders, LocalDate birthDate,Status status) {
-        super(id, name, lastName, cpf, phone, celPhone, status, addressList, orders);
+    public Customer(
+            Long id,
+            String name,
+            String lastName,
+            String cpf,
+            String phone,
+            String celPhone,
+            List<Address> addressList,
+            List<Order> orders,
+            LocalDate birthDate,
+            Status status,
+            User user) {
+        super(id, name, lastName, cpf, phone, celPhone, status, user, addressList, orders);
         this.birthDate = birthDate;
     }
 }

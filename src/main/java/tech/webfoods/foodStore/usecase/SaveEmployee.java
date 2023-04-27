@@ -3,15 +3,12 @@ package tech.webfoods.foodStore.usecase;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.dto.AddressDTO;
 import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
 import tech.webfoods.foodStore.exceptions.FieldNotValidException;
-import tech.webfoods.foodStore.model.Address;
-import tech.webfoods.foodStore.model.Cargo;
-import tech.webfoods.foodStore.model.Employee;
-import tech.webfoods.foodStore.model.Status;
-import tech.webfoods.foodStore.repository.AddressRepository;
+import tech.webfoods.foodStore.model.*;
 import tech.webfoods.foodStore.repository.CargoRepository;
 import tech.webfoods.foodStore.repository.EmployeeRepository;
 import tech.webfoods.foodStore.viaCep.ServiceClient;
@@ -29,6 +26,8 @@ public class SaveEmployee {
     private final CargoRepository cargoRepository;
 
     private final ServiceClient serviceClient;
+
+    private final PasswordEncoder encoder;
 
     public Employee execute(@Valid SaveEmployeeDTO employeeDTO) {
 
@@ -69,6 +68,11 @@ public class SaveEmployee {
         Cargo newCargo = Cargo.builder()
                 .name(employeeDTO.getCargo())
                 .build();
+        User user = User.builder()
+                .login(employeeDTO.getLogin())
+                .pass(encoder.encode(employeeDTO.getPass()))
+                .build();
+        employee.setUser(user);
         employee.setCargo(newCargo);
         cargoRepository.save(employee.getCargo());
         return personRepository.save(employee);

@@ -21,8 +21,21 @@ public class Employee extends Person {
 
 
     @Builder(builderMethodName = "employeeBuilder")
-    public Employee(Long id, String name, String lastName, String cpf, String phone, String celPhone, List<Address> addressList, List<Order> orders, Status status, LocalDate admissionDate, Cargo cargo) {
-        super(id, name, lastName, cpf, phone, celPhone, status, addressList, orders);
+    public Employee(
+            Long id,
+            String name,
+            String lastName,
+            String cpf,
+            String phone,
+            String celPhone,
+            List<Address> addressList,
+            List<Order> orders,
+            Status status,
+            LocalDate admissionDate,
+            Cargo cargo,
+            User user
+            ) {
+        super(id, name, lastName, cpf, phone, celPhone, status, user, addressList, orders);
         this.admissionDate = admissionDate;
         this.cargo = cargo;
     }
