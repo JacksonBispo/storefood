@@ -1,12 +1,14 @@
 package tech.webfoods.foodStore.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
@@ -22,6 +24,7 @@ public class SaveCustomerDTO {
     private String lastName;
 
     @NotBlank
+    @CPF
     private String cpf;
 
 
@@ -46,6 +49,13 @@ public class SaveCustomerDTO {
     private String uf;
     private String city;
 
+    @NotBlank
+    @Email
+    private String login;
+
+    @NotBlank
+    @Length(min = 7)
+    private String pass;
 
     @NotNull
     @Past

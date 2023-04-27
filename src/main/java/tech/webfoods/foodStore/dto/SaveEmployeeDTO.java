@@ -1,13 +1,12 @@
 package tech.webfoods.foodStore.dto;
 
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
 
@@ -45,6 +44,11 @@ public class SaveEmployeeDTO {
     private String localidade;
     private String uf;
     private String city;
+    @Email(message = "o login deve ser um email válido!")
+    private String login;
+    @NotEmpty
+    @Length(min = 7, message = "a senha deve ter no mínimo 7 caracteres")
+    private String pass;
 
     @NotBlank
     private String cargo;

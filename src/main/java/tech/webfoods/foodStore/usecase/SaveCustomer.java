@@ -2,13 +2,14 @@ package tech.webfoods.foodStore.usecase;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.dto.AddressDTO;
-import tech.webfoods.foodStore.dto.CustomerDTO;
 import tech.webfoods.foodStore.dto.SaveCustomerDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.model.Status;
+import tech.webfoods.foodStore.model.User;
 import tech.webfoods.foodStore.repository.CustomerRepository;
 import tech.webfoods.foodStore.viaCep.ServiceClient;
 
@@ -22,6 +23,8 @@ public class SaveCustomer {
     private final CustomerRepository personRepository;
 
     private final ServiceClient serviceClient;
+
+    private final PasswordEncoder encoder;
 
 
     public Customer save(SaveCustomerDTO customerDTO) {
@@ -56,6 +59,11 @@ public class SaveCustomer {
                 .birthDate(customerDTO.getBirthDate())
                 .addressList(List.of(address))
                 .build();
+        User user = User.builder()
+                .login(customerDTO.getLogin())
+                .pass(encoder.encode(customerDTO.getPass()))
+                .build();
+        customer.setUser(user);
         address.setPerson(customer);
         return personRepository.save(customer);
     }
