@@ -1,5 +1,6 @@
 package tech.webfoods.foodStore.resources;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import tech.webfoods.foodStore.usecase.SaveCategory;
 @RequestMapping("/api/v1/")
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearer-key")
 public class CategoryResource {
 
     private SaveCategory saveCategory;

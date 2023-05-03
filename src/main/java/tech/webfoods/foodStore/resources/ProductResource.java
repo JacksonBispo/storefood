@@ -1,5 +1,6 @@
 package tech.webfoods.foodStore.resources;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import tech.webfoods.foodStore.usecase.SaveProduct;
 @RequestMapping("/api/v1/")
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearer-key")
 public class ProductResource {
 
 
