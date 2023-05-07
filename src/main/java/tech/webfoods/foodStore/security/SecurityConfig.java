@@ -29,7 +29,6 @@ public class SecurityConfig {
                 .requestMatchers(
                         HttpMethod.POST, "/login",
                             "/api/v1/customer/save",
-                            "/api/v1/employee/save",
                             "/h2-console/**")
                 .permitAll()
                 .requestMatchers("/v3/api-docs/**",

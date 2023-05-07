@@ -31,7 +31,6 @@ public class PersonResource {
 
     private final SaveEmployee employeeService;
 
-    @SecurityRequirement(name = "bearer-key")
     @PostMapping(value = "/customer/save")
     public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO, UriComponentsBuilder uriBuilder) {
         var customer = saveCustomer.save(customerDTO);
