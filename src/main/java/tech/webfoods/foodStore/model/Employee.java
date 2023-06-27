@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @DiscriminatorValue(Employee.EMPLOYEE)
 @Getter
@@ -33,9 +34,10 @@ public class Employee extends Person {
             Status status,
             LocalDate admissionDate,
             Cargo cargo,
-            User user
+            User user,
+            Set<Integer> profiles
             ) {
-        super(id, name, lastName, cpf, phone, celPhone, status, user, addressList, orders);
+        super(id, name, lastName, cpf, phone, celPhone, status, user, addressList, orders,profiles);
         this.admissionDate = admissionDate;
         this.cargo = cargo;
     }

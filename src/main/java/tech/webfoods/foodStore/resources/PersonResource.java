@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 import tech.webfoods.foodStore.converters.CustomerConverter;
 import tech.webfoods.foodStore.converters.EmployeeConverter;
@@ -31,6 +31,7 @@ public class PersonResource {
 
     private final SaveEmployee employeeService;
 
+
     @PostMapping(value = "/customer/save")
     public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO, UriComponentsBuilder uriBuilder) {
         var customer = saveCustomer.save(customerDTO);
@@ -38,10 +39,11 @@ public class PersonResource {
         return ResponseEntity.created(uri).body(CustomerConverter.toDTO(customer));
     }
 
+
     @SecurityRequirement(name = "bearer-key")
     @PostMapping(value = "/employee/save")
     public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody @Valid SaveEmployeeDTO saveEmployeeDTO) {
-        var employee = employeeService.execute(saveEmployeeDTO);
+            var employee = employeeService.execute(saveEmployeeDTO);
         return ResponseEntity.ok(EmployeeConverter.toDTO(employee));
     }
 
@@ -59,6 +61,8 @@ public class PersonResource {
         var customer = detailCustomer. detailCustomer(id);
         return ResponseEntity.ok(customer);
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @SecurityRequirement(name = "bearer-key")
     @GetMapping(value = "/employee/employers")
     public ResponseEntity<Page<EmployeeDTO>> listEmployee(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {

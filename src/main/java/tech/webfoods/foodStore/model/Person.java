@@ -6,8 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.webfoods.foodStore.model.enums.Profile;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -41,5 +45,15 @@ public class Person {
     @OneToMany(mappedBy = "person")
     private List<Order> orders;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="profiles")
+    private Set<Integer> profiles = new HashSet<>();
 
+    public Set<Profile> getProfiles() {
+        return profiles.stream().map(Profile::toEnum).collect(Collectors.toSet());
+    }
+
+    public void addProfile(Profile profile){
+        profiles.add(profile.getCod());
+    }
 }

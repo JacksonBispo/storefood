@@ -1,12 +1,9 @@
-version: '3.1'
 services:
   db:
-    image: mysql
+    image: comand
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: storefood_dev
-    ports:
-      - "3306:3306"
-    volumes:
-      - $HOME/Desktop/MySQL-Snippets/school.sql:/school.sql
+      MYSQL_DATABASE: comandOnline

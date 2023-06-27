@@ -10,11 +10,13 @@ import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.model.User;
+import tech.webfoods.foodStore.model.enums.Profile;
 import tech.webfoods.foodStore.repository.CustomerRepository;
-import tech.webfoods.foodStore.viaCep.ServiceClient;
+import tech.webfoods.foodStore.service.viaCep.ServiceClient;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
@@ -58,6 +60,7 @@ public class SaveCustomer {
                 .orders(Collections.emptyList())
                 .birthDate(customerDTO.getBirthDate())
                 .addressList(List.of(address))
+                .profiles(Set.of(Profile.CLIENT.getCod()))
                 .build();
         User user = User.builder()
                 .login(customerDTO.getLogin())

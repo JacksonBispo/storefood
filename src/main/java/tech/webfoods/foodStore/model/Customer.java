@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue(Customer.CUSTOMER)
@@ -30,12 +31,13 @@ public class Customer extends Person {
             String cpf,
             String phone,
             String celPhone,
+            Status status,
+            User user,
             List<Address> addressList,
             List<Order> orders,
-            LocalDate birthDate,
-            Status status,
-            User user) {
-        super(id, name, lastName, cpf, phone, celPhone, status, user, addressList, orders);
+            Set<Integer> profiles,
+            LocalDate birthDate) {
+        super(id, name, lastName, cpf, phone, celPhone, status, user, addressList, orders, profiles);
         this.birthDate = birthDate;
     }
 }

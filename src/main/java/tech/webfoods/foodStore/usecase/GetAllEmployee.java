@@ -8,7 +8,6 @@ import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.model.Employee;
 import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.repository.EmployeeRepository;
-import tech.webfoods.foodStore.viaCep.ServiceClient;
 
 @AllArgsConstructor
 @Service
