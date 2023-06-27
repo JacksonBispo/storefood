@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.converters.IngredienteConverter;
 import tech.webfoods.foodStore.converters.ProductConverter;
 import tech.webfoods.foodStore.dto.ProductDTO;
-import tech.webfoods.foodStore.model.Product;
-import tech.webfoods.foodStore.repository.CategoryRepository;
 import tech.webfoods.foodStore.repository.IngredientRepository;
 import tech.webfoods.foodStore.repository.ProductRepository;
 
