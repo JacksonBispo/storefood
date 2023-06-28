@@ -38,7 +38,7 @@ public class Person {
     private User user;
 
 
-    @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person", orphanRemoval = false, cascade = CascadeType.ALL)
     private List<Address> addressList;
 
 

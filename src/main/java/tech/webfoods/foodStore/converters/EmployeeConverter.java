@@ -16,7 +16,6 @@ import java.util.List;
 public class EmployeeConverter {
 
     public static Employee toEntity(SaveEmployeeDTO employeeDTO) {
-        List<Address> addressList = new ArrayList<>();
 
         return Employee.employeeBuilder()
                 .id(null)

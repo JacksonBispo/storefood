@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +32,15 @@ public class PersonResource {
 
     private final SaveEmployee employeeService;
 
+    private final DeleteCustomer deleteCustomer;
+
+    private final DeleteEmployee deleteEmployee;
+
+
 
     @PostMapping(value = "/customer/save")
     public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO, UriComponentsBuilder uriBuilder) {
-        var customer = saveCustomer.save(customerDTO);
+        var customer = saveCustomer.execute(customerDTO);
         var uri = uriBuilder.path("/customer/save/{id}").buildAndExpand(customer.getId()).toUri();
         return ResponseEntity.created(uri).body(CustomerConverter.toDTO(customer));
     }
@@ -58,8 +64,30 @@ public class PersonResource {
     @SecurityRequirement(name = "bearer-key")
     @GetMapping(value = "/customer/customers/{id}")
     public ResponseEntity<CustomerDTO> detailCustomer(@PathVariable Long id) {
-        var customer = detailCustomer. detailCustomer(id);
+        var customer = detailCustomer.execute(id);
         return ResponseEntity.ok(customer);
+    }
+
+    @SecurityRequirement(name = "bearer-key")
+    @DeleteMapping(value = "/customer/customers/{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
+        var isRemoved = deleteEmployee.execute(id);
+        if (isRemoved) {
+            return ResponseEntity.status(HttpStatus.OK).body("Funcionario excluído com sucesso.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("funcionario não encontrado.");
+        }
+    }
+
+    @SecurityRequirement(name = "bearer-key")
+    @DeleteMapping(value = "/employee/employeers/{id}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable Long id) {
+        var isRemoved = deleteEmployee.execute(id);
+        if (isRemoved) {
+            return ResponseEntity.status(HttpStatus.OK).body("Cliente excluído com sucesso.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado.");
+        }
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

@@ -8,6 +8,7 @@ import tech.webfoods.foodStore.model.Customer;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class CustomerConverter {
 
@@ -34,6 +35,19 @@ public class CustomerConverter {
 
     }
 
+    public static Customer toEntity(CustomerDTO customerDTO) {
+        return Customer.customerBuilder()
+                .name(customerDTO.getName())
+                .lastName(customerDTO.getLastName())
+                .cpf(customerDTO.getCpf())
+                .phone(customerDTO.getPhone())
+                .celPhone(customerDTO.getCelPhone())
+                .orders(Collections.emptyList())
+                .birthDate(customerDTO.getBirthDate())
+                .build();
+
+    }
+
     public static Customer toCustomerEntity(Customer person) {
         return Customer.customerBuilder()
                 .name(person.getName())
@@ -51,6 +65,7 @@ public class CustomerConverter {
 
     public static CustomerDTO toDTO(Customer person) {
         return CustomerDTO.customerDTOBuilder()
+                .id(person.getId())
                 .name(person.getName())
                 .lastName(person.getLastName())
                 .cpf(person.getCpf())
