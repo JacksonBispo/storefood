@@ -9,6 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public abstract class PersonDTO {
+
+    private Long id;
     private String name;
     private String lastName;
     private String cpf;

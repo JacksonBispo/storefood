@@ -29,7 +29,7 @@ public class SaveCustomer {
     private final PasswordEncoder encoder;
 
 
-    public Customer save(SaveCustomerDTO customerDTO) {
+    public Customer execute(SaveCustomerDTO customerDTO) {
 
         AddressDTO addressDTO = serviceClient.buscaEnderecoPorCep(customerDTO.getPostalCode());
         customerDTO.setPlaceName(addressDTO.getLogradouro());
