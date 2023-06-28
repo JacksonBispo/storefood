@@ -1,14 +1,11 @@
 package tech.webfoods.foodStore.dto;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-
-import java.time.LocalDate;
 
 @Data
 @Builder(toBuilder = true)
@@ -52,9 +49,5 @@ public class SaveEmployeeDTO {
 
     @NotBlank
     private String cargo;
-
-    @Future
-    private LocalDate admissionDate;
-
 
 }

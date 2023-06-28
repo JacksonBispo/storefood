@@ -9,13 +9,15 @@ import tech.webfoods.foodStore.dto.AddressDTO;
 import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
 import tech.webfoods.foodStore.exceptions.FieldNotValidException;
 import tech.webfoods.foodStore.model.*;
+import tech.webfoods.foodStore.model.enums.Profile;
 import tech.webfoods.foodStore.repository.CargoRepository;
 import tech.webfoods.foodStore.repository.EmployeeRepository;
-import tech.webfoods.foodStore.viaCep.ServiceClient;
+import tech.webfoods.foodStore.service.viaCep.ServiceClient;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
@@ -58,9 +60,9 @@ public class SaveEmployee {
                 .celPhone(employeeDTO.getCelPhone())
                 .status(Status.ACTIVE)
                 .orders(Collections.emptyList())
-                .admissionDate(employeeDTO.getAdmissionDate())
                 .admissionDate(LocalDate.now())
                 .addressList(List.of(address))
+                .profiles(Set.of(Profile.EMPLOYEE.getCod()))
                 .build();
 
         address.setPerson(employee);

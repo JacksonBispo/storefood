@@ -8,6 +8,7 @@ import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Cargo;
 import tech.webfoods.foodStore.model.Employee;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +16,6 @@ import java.util.List;
 public class EmployeeConverter {
 
     public static Employee toEntity(SaveEmployeeDTO employeeDTO) {
-        List<Address> addressList = new ArrayList<>();
 
         return Employee.employeeBuilder()
                 .id(null)
@@ -25,7 +25,7 @@ public class EmployeeConverter {
                 .phone(employeeDTO.getPhone())
                 .celPhone(employeeDTO.getCelPhone())
                 .orders(Collections.emptyList())
-                .admissionDate(employeeDTO.getAdmissionDate())
+                .admissionDate(LocalDate.now())
                 .cargo(Cargo.builder()
                         .name(employeeDTO.getCargo())
                         .build())

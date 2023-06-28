@@ -1,4 +1,4 @@
-package tech.webfoods.foodStore.viaCep;
+package tech.webfoods.foodStore.service.viaCep;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;

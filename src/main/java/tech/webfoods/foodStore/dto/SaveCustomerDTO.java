@@ -59,6 +59,6 @@ public class SaveCustomerDTO {
 
     @NotNull
     @Past
-    private LocalDate birthDate;
+        private LocalDate birthDate;
 
 }

@@ -8,21 +8,17 @@ import tech.webfoods.foodStore.converters.CustomerConverter;
 import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.dto.CustomerDTO;
 import tech.webfoods.foodStore.dto.EmployeeDTO;
-import tech.webfoods.foodStore.model.Customer;
-import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.repository.CustomerRepository;
-
-import java.util.Optional;
+import tech.webfoods.foodStore.repository.EmployeeRepository;
 
 @Service
 @AllArgsConstructor
-public class DetailCustomer {
+public class DetailEmployee {
 
-    private final CustomerRepository customerRepository;
+    private final EmployeeRepository employeeRepository;
 
-
-        public CustomerDTO execute(Long id){
-            var employee = customerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-            return CustomerConverter.toDTO(employee);
-        }
+    public EmployeeDTO execute(Long id){
+        var employee = employeeRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return EmployeeConverter.toDTO(employee);
+    }
 }
