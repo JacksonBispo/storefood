@@ -29,7 +29,7 @@ public class User  implements UserDetails {
 
     private String pass;
 
-
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "usuario_roles",
             joinColumns = @JoinColumn(name = "usuario_id"))
     @Column(name = "role")
