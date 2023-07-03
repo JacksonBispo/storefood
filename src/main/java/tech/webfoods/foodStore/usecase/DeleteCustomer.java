@@ -16,12 +16,12 @@ public class DeleteCustomer {
 
     private final DetailCustomer detailCustomer;
     public boolean execute(Long id) {
-        var customer = customerRepository.findById(id);
-        if (customer.isPresent()&& customer.get().getStatus().equals(Status.ACTIVE)) {
-            customer.get().setStatus(Status.INACTIVE);
+        var customer = detailCustomer.execute(id);
+        if (customer != null && customer.getStatus().equals(Status.ACTIVE)) {
+            customer.setStatus(Status.INACTIVE);
 
-            customerRepository.save(customer.get());
-            return customer.get().getStatus().equals(Status.INACTIVE);
+            customerRepository.save(CustomerConverter.toEntity(customer));
+            return customer.getStatus().equals(Status.INACTIVE);
         }
         return false;
     }

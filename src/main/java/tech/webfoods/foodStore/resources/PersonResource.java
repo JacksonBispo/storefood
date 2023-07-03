@@ -71,11 +71,11 @@ public class PersonResource {
     @SecurityRequirement(name = "bearer-key")
     @DeleteMapping(value = "/customer/customers/{id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
-        var isRemoved = deleteEmployee.execute(id);
+        var isRemoved = deleteCustomer.execute(id);
         if (isRemoved) {
-            return ResponseEntity.status(HttpStatus.OK).body("Funcionario excluído com sucesso.");
+            return ResponseEntity.status(HttpStatus.OK).body("Cliente excluído com sucesso.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("funcionario não encontrado.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado.");
         }
     }
 
@@ -84,9 +84,9 @@ public class PersonResource {
     public ResponseEntity<String> deleteCustomer(@PathVariable Long id) {
         var isRemoved = deleteEmployee.execute(id);
         if (isRemoved) {
-            return ResponseEntity.status(HttpStatus.OK).body("Cliente excluído com sucesso.");
+            return ResponseEntity.status(HttpStatus.OK).body("Funcionario excluído com sucesso.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado.");
         }
     }
 

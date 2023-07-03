@@ -71,6 +71,7 @@ public class CustomerConverter {
                 .cpf(person.getCpf())
                 .phone(person.getPhone())
                 .celPhone(person.getCelPhone())
+                .status(person.getStatus())
                 .birthDate(person.getBirthDate())
                 .addressList(AddressConverter.getAddressesToDto(person.getAddressList()))
                 .build();

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import tech.webfoods.foodStore.model.Order;
+import tech.webfoods.foodStore.model.Status;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,8 +17,8 @@ public class CustomerDTO extends PersonDTO {
     private LocalDate birthDate;
 
     @Builder(builderMethodName = "customerDTOBuilder")
-    public CustomerDTO(Long id, String name, String lastName, String cpf, String phone, String celPhone, List<AddressDTO> addressList, List<Order> orders, LocalDate birthDate) {
-        super(id, name, lastName, cpf, phone, celPhone, addressList, orders);
+    public CustomerDTO(Long id, String name, String lastName, String cpf, String phone, Status status, String celPhone, List<AddressDTO> addressList, List<Order> orders, LocalDate birthDate) {
+        super(id, name, lastName, cpf, phone, celPhone, status, addressList, orders);
         this.birthDate = birthDate;
     }
 }
