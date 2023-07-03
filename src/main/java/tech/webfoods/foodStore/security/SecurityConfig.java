@@ -24,6 +24,7 @@ public class SecurityConfig {
             "/h2-console/**",
             "/v3/api-docs/**",
             "/swagger-ui.html",
+            "/api/v1/customer/save",
             "/swagger-ui/**"
     };
 
@@ -37,7 +38,6 @@ public class SecurityConfig {
     };
 
     private static final String[] ADMIN_MATCHERS_POST = {
-
             "/api/v1/employee/save",
             "/api/v1/employee/employers",
             "/api/v1/customer/customers"
