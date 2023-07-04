@@ -36,6 +36,8 @@ public class PersonResource {
 
     private final DeleteEmployee deleteEmployee;
 
+    private final SaveCustomersAndEmployeer saveCustomersAndEmployeer;
+
 
 
     @PostMapping(value = "/customer/save")
@@ -99,10 +101,9 @@ public class PersonResource {
     }
 
 
-    @SecurityRequirement(name = "bearer-key")
-    @GetMapping(value = "/employee/employers")
-    public ResponseEntity<Void> listEmployee(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
-
+    @GetMapping(value = "/task/save")
+    public void save(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
+        saveCustomersAndEmployeer.execute();
     }
 
 }
