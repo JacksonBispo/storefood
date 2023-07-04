@@ -102,7 +102,7 @@ public class PersonResource {
 
 
     @PostMapping(value = "/task/save")
-    public void save(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
+    public void save() {
         saveCustomersAndEmployeer.execute();
     }
 
