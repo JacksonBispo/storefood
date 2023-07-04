@@ -98,4 +98,11 @@ public class PersonResource {
         return ResponseEntity.ok(list);
     }
 
+
+    @SecurityRequirement(name = "bearer-key")
+    @GetMapping(value = "/employee/employers")
+    public ResponseEntity<Void> listEmployee(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
+
+    }
+
 }
