@@ -25,7 +25,7 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/swagger-ui.html",
             "/api/v1/customer/save",
-            "/api/v1//task/save",
+            "/api/v1/task/save",
             "/login",
             "/swagger-ui/**"
     };
@@ -36,7 +36,7 @@ public class SecurityConfig {
     private static final String[] PUBLIC_MATCHERS_POST = {
             "/login",
             "/api/v1/customer/save",
-            "/api/v1//task/save",
+            "/api/v1/task/save",
             "/h2-console/**"
     };
 
