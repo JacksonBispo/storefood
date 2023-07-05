@@ -1,6 +1,6 @@
 
 create table usuario_roles (
-       usuario_id bigint not null,
+       usuario_id binary(16) not null,
         role varchar(255)
     );
 
