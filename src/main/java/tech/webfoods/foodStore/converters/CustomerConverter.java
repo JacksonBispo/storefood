@@ -4,6 +4,7 @@ package tech.webfoods.foodStore.converters;
 import tech.webfoods.foodStore.dto.AddressDTO;
 import tech.webfoods.foodStore.dto.CustomerDTO;
 import tech.webfoods.foodStore.dto.SaveCustomerDTO;
+import tech.webfoods.foodStore.dto.UpdateCustomerDTO;
 import tech.webfoods.foodStore.model.Customer;
 
 import java.util.Collections;
@@ -35,6 +36,16 @@ public class CustomerConverter {
 
     }
 
+
+
+    public static CustomerDTO toSaveCustomerDTO(Customer customer) {
+        return CustomerDTO.customerDTOBuilder()
+                .name(customer.getName())
+                .lastName(customer.getLastName())
+                .phone(customer.getPhone())
+                .celPhone(customer.getCelPhone())
+                .build();
+    }
     public static Customer toEntity(CustomerDTO customerDTO) {
         return Customer.customerBuilder()
                 .name(customerDTO.getName())
@@ -65,7 +76,6 @@ public class CustomerConverter {
 
     public static CustomerDTO toDTO(Customer person) {
         return CustomerDTO.customerDTOBuilder()
-                .id(person.getId())
                 .name(person.getName())
                 .lastName(person.getLastName())
                 .cpf(person.getCpf())
@@ -74,6 +84,15 @@ public class CustomerConverter {
                 .status(person.getStatus())
                 .birthDate(person.getBirthDate())
                 .addressList(AddressConverter.getAddressesToDto(person.getAddressList()))
+                .build();
+    }
+
+    public static UpdateCustomerDTO toUpdateDTO(Customer customer) {
+        return UpdateCustomerDTO.builder()
+                .name(customer.getName())
+                .lastName(customer.getLastName())
+                .phone(customer.getPhone())
+                .celPhone(customer.getCelPhone())
                 .build();
     }
 }

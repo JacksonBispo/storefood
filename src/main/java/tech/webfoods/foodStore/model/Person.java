@@ -11,6 +11,7 @@ import tech.webfoods.foodStore.model.enums.Profile;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
@@ -24,8 +25,8 @@ import java.util.stream.Collectors;
 @Table(name = "TB_PERSON")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
     private String lastName;
     private String cpf;

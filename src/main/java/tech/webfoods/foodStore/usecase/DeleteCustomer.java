@@ -7,6 +7,8 @@ import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.repository.CustomerRepository;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class DeleteCustomer {
@@ -15,7 +17,7 @@ public class DeleteCustomer {
     private final CustomerRepository customerRepository;
 
     private final DetailCustomer detailCustomer;
-    public boolean execute(Long id) {
+    public boolean execute(UUID id) {
         var customer = detailCustomer.execute(id);
         if (customer != null && customer.getStatus().equals(Status.ACTIVE)) {
             customer.setStatus(Status.INACTIVE);

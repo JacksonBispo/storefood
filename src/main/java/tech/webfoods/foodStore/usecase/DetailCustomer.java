@@ -13,6 +13,7 @@ import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.repository.CustomerRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class DetailCustomer {
     private final CustomerRepository customerRepository;
 
 
-        public CustomerDTO execute(Long id){
+        public CustomerDTO execute(UUID id){
             var employee = customerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
             return CustomerConverter.toDTO(employee);
         }

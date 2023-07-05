@@ -14,7 +14,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import tech.webfoods.foodStore.converters.CustomerConverter;
 import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.dto.*;
+import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.usecase.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -23,6 +26,8 @@ import tech.webfoods.foodStore.usecase.*;
 public class PersonResource {
 
     private final SaveCustomer saveCustomer;
+
+    private final UpdateCustomer updateCustomer;
 
     private final GetAllCustomers getAllCustomers;
 
@@ -41,7 +46,8 @@ public class PersonResource {
 
 
     @PostMapping(value = "/customer/save")
-    public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<PersonDTO> saveCustomer(@RequestBody @Valid SaveCustomerDTO customerDTO,
+                                                  UriComponentsBuilder uriBuilder) {
         var customer = saveCustomer.execute(customerDTO);
         var uri = uriBuilder.path("/customer/save/{id}").buildAndExpand(customer.getId()).toUri();
         return ResponseEntity.created(uri).body(CustomerConverter.toDTO(customer));
@@ -65,14 +71,14 @@ public class PersonResource {
 
     @SecurityRequirement(name = "bearer-key")
     @GetMapping(value = "/customer/customers/{id}")
-    public ResponseEntity<CustomerDTO> detailCustomer(@PathVariable Long id) {
+    public ResponseEntity<CustomerDTO> detailCustomer(@PathVariable UUID id) {
         var customer = detailCustomer.execute(id);
         return ResponseEntity.ok(customer);
     }
 
     @SecurityRequirement(name = "bearer-key")
     @DeleteMapping(value = "/customer/customers/{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<String> deleteEmployee(@PathVariable UUID id) {
         var isRemoved = deleteCustomer.execute(id);
         if (isRemoved) {
             return ResponseEntity.status(HttpStatus.OK).body("Cliente excluído com sucesso.");
@@ -82,8 +88,19 @@ public class PersonResource {
     }
 
     @SecurityRequirement(name = "bearer-key")
+    @PutMapping(value = "/customer/customers/{id}")
+    public ResponseEntity<UpdateCustomerDTO> update(@PathVariable UUID id,
+                                              @RequestBody @Valid UpdateCustomerDTO UpdateCustomerDTO,
+                                              UriComponentsBuilder uriBuilder) {
+        UpdateCustomerDTO.setId(id);
+        var customer =updateCustomer.execute(UpdateCustomerDTO);
+        var uri = uriBuilder.path("/customer/save/{id}").buildAndExpand(customer.getId()).toUri();
+        return ResponseEntity.created(uri).body(CustomerConverter.toUpdateDTO(customer));
+    }
+
+    @SecurityRequirement(name = "bearer-key")
     @DeleteMapping(value = "/employee/employeers/{id}")
-    public ResponseEntity<String> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity<String> deleteCustomer(@PathVariable UUID id) {
         var isRemoved = deleteEmployee.execute(id);
         if (isRemoved) {
             return ResponseEntity.status(HttpStatus.OK).body("Funcionario excluído com sucesso.");

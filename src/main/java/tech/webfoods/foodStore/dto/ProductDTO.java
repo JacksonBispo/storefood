@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder(toBuilder = true)
@@ -20,7 +21,7 @@ public class ProductDTO {
 
     private BigDecimal price;
 
-    private Long category;
+    private UUID category;
 
     private String categoryName;
 

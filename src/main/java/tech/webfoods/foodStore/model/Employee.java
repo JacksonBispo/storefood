@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @DiscriminatorValue(Employee.EMPLOYEE)
 @Getter
@@ -23,7 +24,7 @@ public class Employee extends Person {
 
     @Builder(builderMethodName = "employeeBuilder")
     public Employee(
-            Long id,
+            UUID id,
             String name,
             String lastName,
             String cpf,

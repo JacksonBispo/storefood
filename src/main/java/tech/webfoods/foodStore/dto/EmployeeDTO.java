@@ -20,8 +20,8 @@ public class EmployeeDTO extends PersonDTO {
 
     @Builder(builderMethodName = "employeeDTOBuilder")
 
-    public EmployeeDTO(Long id, String name, String lastName, String cpf, String phone, Status status, String celPhone, List<AddressDTO> addressList, List<Order> orders, CargoDTO cargoDTO, LocalDate admissionDate) {
-        super(id, name, lastName, cpf, phone, celPhone, status, addressList, orders);
+    public EmployeeDTO(String name, String lastName, String cpf, String phone, Status status, String celPhone, List<AddressDTO> addressList, List<Order> orders, CargoDTO cargoDTO, LocalDate admissionDate) {
+        super(name, lastName, cpf, phone, celPhone, status, addressList, orders);
         this.cargoDTO = cargoDTO;
         this.admissionDate = admissionDate;
     }

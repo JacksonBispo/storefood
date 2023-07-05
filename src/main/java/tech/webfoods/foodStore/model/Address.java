@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -22,8 +23,8 @@ public class Address implements Serializable {
     private static final long serialVersionUID = 2662999979467455549L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String number;
     private String name;
     private String postalCode;

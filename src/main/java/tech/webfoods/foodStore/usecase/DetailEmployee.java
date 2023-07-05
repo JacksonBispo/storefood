@@ -11,13 +11,15 @@ import tech.webfoods.foodStore.dto.EmployeeDTO;
 import tech.webfoods.foodStore.repository.CustomerRepository;
 import tech.webfoods.foodStore.repository.EmployeeRepository;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class DetailEmployee {
 
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeDTO execute(Long id){
+    public EmployeeDTO execute(UUID id){
         var employee = employeeRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return EmployeeConverter.toDTO(employee);
     }
