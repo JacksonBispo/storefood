@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Table(name = "TB_PERSON")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
     private String lastName;
@@ -56,5 +56,10 @@ public class Person {
 
     public void addProfile(Profile profile){
         profiles.add(profile.getCod());
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.id = UUID.randomUUID();
     }
 }

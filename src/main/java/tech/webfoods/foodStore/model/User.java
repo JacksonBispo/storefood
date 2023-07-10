@@ -19,7 +19,7 @@ import java.util.*;
 public class User  implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String login;
@@ -78,5 +78,10 @@ public class User  implements UserDetails {
     public boolean hasRole(Profile profile) {
 
         return getAuthorities().contains(new SimpleGrantedAuthority(profile.getDescription()));
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.id = UUID.randomUUID();
     }
 }

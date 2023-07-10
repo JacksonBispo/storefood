@@ -29,5 +29,8 @@ public class Order {
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 
-
+    @PrePersist
+    public void prePersist() {
+        this.id = UUID.randomUUID();
+    }
 }

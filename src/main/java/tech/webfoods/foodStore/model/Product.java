@@ -20,7 +20,7 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String description;
@@ -36,4 +36,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Category category;
+
+    @PrePersist
+    public void prePersist() {
+        this.id = UUID.randomUUID();
+    }
 }

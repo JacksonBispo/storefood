@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String name;
@@ -26,4 +26,8 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products;
 
+    @PrePersist
+    public void prePersist() {
+        this.id = UUID.randomUUID();
+    }
 }

@@ -1,98 +1,131 @@
+create table product_ingredient (
+       product_id uuid not null,
+        ingredient_id uuid not null
+    );
 
-CREATE TABLE IF NOT EXISTS `tb_categoria` (
-  `id` binary(16) NOT NULL,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`));
+    create table profiles (
+       person_id uuid not null,
+        profiles integer
+    );
 
+    create table tb_address (
+       id uuid not null,
+        bairro varchar(255),
+        city varchar(255),
+        complemento varchar(255),
+        name varchar(255),
+        number varchar(255),
+        postal_code varchar(255),
+        uf varchar(255),
+        person_id uuid,
+        primary key (id)
+    );
 
-CREATE TABLE IF NOT EXISTS `tb_produtos` (
-  `id` binary(16) NOT NULL,
-  `description` VARCHAR(255) NULL DEFAULT NULL,
-  `price` DECIMAL(38,2) NULL DEFAULT NULL,
-  `categoria_id` binary(16) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FK555mlvcyvwis1o07pywhrr83p`
-    FOREIGN KEY (`categoria_id`)
-    REFERENCES `tb_categoria` (`id`));
+    create table tb_cargo (
+       id uuid not null,
+        name varchar(255),
+        primary key (id)
+    );
 
+    create table tb_categoria (
+       id uuid not null,
+        name varchar(255),
+        primary key (id)
+    );
 
-CREATE TABLE IF NOT EXISTS `tb_ingredients` (
-  `id` binary(16) NOT NULL ,
-  `description` VARCHAR(255) NULL DEFAULT NULL,
-  `price` DECIMAL(38,2) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`));
+    create table tb_ingredients (
+       id uuid not null,
+        description varchar(255),
+        price numeric(38,2),
+        primary key (id)
+    );
 
+    create table tb_orders (
+       id uuid not null,
+        amount_change numeric(38,2),
+        amount_order numeric(38,2),
+        order_data date,
+        person_id uuid,
+        primary key (id)
+    );
 
-CREATE TABLE IF NOT EXISTS `product_ingredient` (
-  `product_id` binary(16) NOT NULL,
-  `ingredient_id` binary(16) NOT NULL,
-  CONSTRAINT `FKaft3nqkkbyo3h2gl7f14d1mih`
-    FOREIGN KEY (`product_id`)
-    REFERENCES `tb_produtos` (`id`),
-  CONSTRAINT `FKn2ojjyx71g19piwb0trwqwtvr`
-    FOREIGN KEY (`ingredient_id`)
-    REFERENCES `tb_ingredients` (`id`));
+    create table tb_person (
+       person_type varchar(31) not null,
+        id uuid not null,
+        cel_phone varchar(255),
+        cpf varchar(255),
+        last_name varchar(255),
+        name varchar(255),
+        phone varchar(255),
+        status varchar(255),
+        birth_date date,
+        admission_date date,
+        user_id uuid,
+        cargo_id uuid,
+        primary key (id)
+    );
 
+    create table tb_produtos (
+       id uuid not null,
+        description varchar(255),
+        price numeric(38,2),
+        categoria_id uuid,
+        primary key (id)
+    );
 
-CREATE TABLE IF NOT EXISTS `tb_usuario` (
-  `id` binary(16) NOT NULL,
-  `authorities` VARBINARY(255) NULL DEFAULT NULL,
-  `login` VARCHAR(255) NULL DEFAULT NULL,
-  `pass` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`));
+    create table tb_usuario (
+       id uuid not null,
+        login varchar(255),
+        pass varchar(255),
+        primary key (id)
+    );
 
+    create table usuario_roles (
+       usuario_id uuid not null,
+        role varchar(255)
+    );
 
-CREATE TABLE IF NOT EXISTS `tb_cargo` (
-  `id` binary(16) NOT NULL ,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`));
+    alter table if exists product_ingredient
+       add constraint FKn2ojjyx71g19piwb0trwqwtvr
+       foreign key (ingredient_id)
+       references tb_ingredients;
 
+    alter table if exists product_ingredient
+       add constraint FKaft3nqkkbyo3h2gl7f14d1mih
+       foreign key (product_id)
+       references tb_produtos;
 
-CREATE TABLE IF NOT EXISTS `tb_person` (
-  `person_type` VARCHAR(31) NOT NULL,
-  `id` binary(16) NOT NULL ,
-  `cel_phone` VARCHAR(255) NULL DEFAULT NULL,
-  `cpf` VARCHAR(255) NULL DEFAULT NULL,
-  `last_name` VARCHAR(255) NULL DEFAULT NULL,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  `phone` VARCHAR(255) NULL DEFAULT NULL,
-  `status` VARCHAR(255) NULL DEFAULT NULL,
-  `birth_date` DATE NULL DEFAULT NULL,
-  `admission_date` DATE NULL DEFAULT NULL,
-  `user_id` binary(16) NULL DEFAULT NULL,
-  `cargo_id` binary(16) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FKc4adphkrhxj5mxmvwo4jxkbt0`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `tb_usuario` (`id`),
-  CONSTRAINT `FKloqi73i53s8wncb1d32587syi`
-    FOREIGN KEY (`cargo_id`)
-    REFERENCES `tb_cargo` (`id`));
+    alter table if exists profiles
+       add constraint FKdvct6x1ebnx9n8u557yolccgg
+       foreign key (person_id)
+       references tb_person;
 
+    alter table if exists tb_address
+       add constraint FKtrocr0nyv92c11b6gvu9p5rcr
+       foreign key (person_id)
+       references tb_person;
 
-CREATE TABLE IF NOT EXISTS `tb_address` (
-  `id` binary(16) NOT NULL ,
-  `bairro` VARCHAR(255) NULL DEFAULT NULL,
-  `city` VARCHAR(255) NULL DEFAULT NULL,
-  `complemento` VARCHAR(255) NULL DEFAULT NULL,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  `number` VARCHAR(255) NULL DEFAULT NULL,
-  `postal_code` VARCHAR(255) NULL DEFAULT NULL,
-  `uf` VARCHAR(255) NULL DEFAULT NULL,
-  `person_id` binary(16) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FKtrocr0nyv92c11b6gvu9p5rcr`
-    FOREIGN KEY (`person_id`)
-    REFERENCES `tb_person` (`id`));
+    alter table if exists tb_orders
+       add constraint FKfu2t9c2626lfts3tfd9v1bsgf
+       foreign key (person_id)
+       references tb_person;
 
+    alter table if exists tb_person
+       add constraint FKc4adphkrhxj5mxmvwo4jxkbt0
+       foreign key (user_id)
+       references tb_usuario;
 
-CREATE TABLE IF NOT EXISTS `tb_orders` (
-  `id` binary(16) NOT NULL ,
-  `amount_change` DECIMAL(38,2) NULL DEFAULT NULL,
-  `amount_order` DECIMAL(38,2) NULL DEFAULT NULL,
-  `order_data` DATE NULL DEFAULT NULL,
-  `person_id` binary(16)  NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FKfu2t9c2626lfts3tfd9v1bsgf`
-    FOREIGN KEY (`person_id`)
-    REFERENCES `tb_person` (`id`));
+    alter table if exists tb_person
+       add constraint FKloqi73i53s8wncb1d32587syi
+       foreign key (cargo_id)
+       references tb_cargo;
+
+    alter table if exists tb_produtos
+       add constraint FK555mlvcyvwis1o07pywhrr83p
+       foreign key (categoria_id)
+       references tb_categoria;
+
+    alter table if exists usuario_roles
+       add constraint FK156s3ye7ajlyyalbyfj1k2tyu
+       foreign key (usuario_id)
+       references tb_usuario;
