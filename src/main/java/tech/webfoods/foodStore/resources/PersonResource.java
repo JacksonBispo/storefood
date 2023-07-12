@@ -14,7 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import tech.webfoods.foodStore.converters.CustomerConverter;
 import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.dto.*;
-import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.usecase.*;
 
 import java.util.UUID;
@@ -41,7 +40,9 @@ public class PersonResource {
 
     private final DeleteEmployee deleteEmployee;
 
-    private final SaveCustomersAndEmployeer saveCustomersAndEmployeer;
+    private final UpdateEmployee updateEmployee;
+
+
 
 
 
@@ -99,7 +100,18 @@ public class PersonResource {
     }
 
     @SecurityRequirement(name = "bearer-key")
-    @DeleteMapping(value = "/employee/employeers/{id}")
+    @PutMapping(value = "/employer/employers/{id}")
+    public ResponseEntity<UpdateEmployeeDTO> update(@PathVariable UUID id,
+                                                    @RequestBody @Valid UpdateEmployeeDTO updateEmployeeDTO ,
+                                                    UriComponentsBuilder uriBuilder) {
+        updateEmployeeDTO.setId(id);
+        var employee =updateEmployee.execute(updateEmployeeDTO);
+        var uri = uriBuilder.path("employer/employers/{id}").buildAndExpand(employee.getId()).toUri();
+        return ResponseEntity.created(uri).body(EmployeeConverter.toUpdateDTO(employee));
+    }
+
+    @SecurityRequirement(name = "bearer-key")
+    @DeleteMapping(value = "/employee/employers/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable UUID id) {
         var isRemoved = deleteEmployee.execute(id);
         if (isRemoved) {
@@ -116,11 +128,4 @@ public class PersonResource {
         var list = getAllEmployee.execute(pageable).map(EmployeeConverter::toDTO);
         return ResponseEntity.ok(list);
     }
-
-
-    @PostMapping(value = "/task/save")
-    public void save() {
-        saveCustomersAndEmployeer.execute();
-    }
-
 }

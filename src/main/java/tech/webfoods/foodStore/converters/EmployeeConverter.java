@@ -1,11 +1,10 @@
 package tech.webfoods.foodStore.converters;
 
 
-import tech.webfoods.foodStore.dto.AddressDTO;
-import tech.webfoods.foodStore.dto.EmployeeDTO;
-import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
+import tech.webfoods.foodStore.dto.*;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Cargo;
+import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.model.Employee;
 
 import java.time.LocalDate;
@@ -52,6 +51,16 @@ public class EmployeeConverter {
                 .admissionDate(person.getAdmissionDate())
                 .addressList(AddressConverter.getAddressesToDto(person.getAddressList()))
                 .cargoDTO(CargoDtoConverter.toDTO(person.getCargo()))
+                .build();
+    }
+
+    public static UpdateEmployeeDTO toUpdateDTO(Employee employee) {
+        return UpdateEmployeeDTO.builder()
+                .name(employee.getName())
+                .lastName(employee.getLastName())
+                .phone(employee.getPhone())
+                .celPhone(employee.getCelPhone())
+                .admissionDate(employee.getAdmissionDate())
                 .build();
     }
 

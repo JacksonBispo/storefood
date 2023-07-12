@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.dto.UpdateCustomerDTO;
+import tech.webfoods.foodStore.dto.UpdateEmployeeDTO;
 import tech.webfoods.foodStore.model.Customer;
+import tech.webfoods.foodStore.model.Employee;
 import tech.webfoods.foodStore.repository.CustomerRepository;
+import tech.webfoods.foodStore.repository.EmployeeRepository;
 import tech.webfoods.foodStore.service.viaCep.ServiceClient;
 
 import java.util.Collections;
@@ -15,27 +18,27 @@ import java.util.Collections;
 @Service
 public class UpdateEmployee {
 
-    private final CustomerRepository personRepository;
+    private final EmployeeRepository employeeRepository;
 
     private final ServiceClient serviceClient;
 
     private final PasswordEncoder encoder;
 
 
-    public Customer execute(UpdateCustomerDTO updateCustomerDTO) {
+    public Employee execute(UpdateEmployeeDTO updateEmployeeDTO) {
+        Employee employeeFind;
+        employeeFind = employeeRepository.findById(updateEmployeeDTO.getId()).get();
 
-
-        Customer customer = Customer.customerBuilder()
-                .id(updateCustomerDTO.getId())
-                .name(updateCustomerDTO.getName())
-                .lastName(updateCustomerDTO.getLastName())
-                .phone(updateCustomerDTO.getPhone())
-                .celPhone(updateCustomerDTO.getCelPhone())
-                .orders(Collections.emptyList())
-                .birthDate(updateCustomerDTO.getBirthDate())
+        Employee employee = Employee.employeeBuilder()
+                .id(updateEmployeeDTO.getId())
+                .name(updateEmployeeDTO.getName() != null ? updateEmployeeDTO.getName() : employeeFind.getName())
+                .lastName(updateEmployeeDTO.getLastName() != null ? updateEmployeeDTO.getLastName() : employeeFind.getLastName())
+                .phone(updateEmployeeDTO.getPhone() != null ? updateEmployeeDTO.getPhone() : employeeFind.getPhone())
+                .celPhone(updateEmployeeDTO.getCelPhone() != null ? updateEmployeeDTO.getCelPhone() : employeeFind.getCelPhone())
+                .admissionDate(updateEmployeeDTO.getAdmissionDate() != null ? updateEmployeeDTO.getAdmissionDate() : employeeFind.getAdmissionDate())
                 .build();
 
-        return personRepository.save(customer);
-    }
+        return employeeRepository.save(employee);
 
+    }
 }

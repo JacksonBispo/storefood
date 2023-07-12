@@ -93,6 +93,7 @@ public class CustomerConverter {
                 .lastName(customer.getLastName())
                 .phone(customer.getPhone())
                 .celPhone(customer.getCelPhone())
+                .birthDate(customer.getBirthDate())
                 .build();
     }
 }

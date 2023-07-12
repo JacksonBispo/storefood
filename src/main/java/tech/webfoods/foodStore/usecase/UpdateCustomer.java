@@ -4,26 +4,19 @@ package tech.webfoods.foodStore.usecase;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import tech.webfoods.foodStore.dto.AddressDTO;
-import tech.webfoods.foodStore.dto.SaveCustomerDTO;
 import tech.webfoods.foodStore.dto.UpdateCustomerDTO;
-import tech.webfoods.foodStore.model.Address;
+import tech.webfoods.foodStore.dto.UpdateEmployeeDTO;
 import tech.webfoods.foodStore.model.Customer;
-import tech.webfoods.foodStore.model.Status;
-import tech.webfoods.foodStore.model.User;
-import tech.webfoods.foodStore.model.enums.Profile;
+import tech.webfoods.foodStore.model.Employee;
 import tech.webfoods.foodStore.repository.CustomerRepository;
+import tech.webfoods.foodStore.repository.EmployeeRepository;
 import tech.webfoods.foodStore.service.viaCep.ServiceClient;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @Service
 public class UpdateCustomer {
 
-    private final CustomerRepository personRepository;
+    private final CustomerRepository customerRepository;
 
     private final ServiceClient serviceClient;
 
@@ -32,18 +25,18 @@ public class UpdateCustomer {
 
     public Customer execute(UpdateCustomerDTO updateCustomerDTO) {
 
+        var customerFind = customerRepository.findById(updateCustomerDTO.getId()).get();
 
         Customer customer = Customer.customerBuilder()
                 .id(updateCustomerDTO.getId())
-                .name(updateCustomerDTO.getName())
-                .lastName(updateCustomerDTO.getLastName())
-                .phone(updateCustomerDTO.getPhone())
-                .celPhone(updateCustomerDTO.getCelPhone())
-                .orders(Collections.emptyList())
-                .birthDate(updateCustomerDTO.getBirthDate())
+                .name(updateCustomerDTO.getName() != null ? updateCustomerDTO.getName() : customerFind.getName())
+                .lastName(updateCustomerDTO.getLastName() != null ? updateCustomerDTO.getLastName() : customerFind.getLastName())
+                .phone(updateCustomerDTO.getPhone() != null ? updateCustomerDTO.getPhone() : customerFind.getPhone())
+                .celPhone(updateCustomerDTO.getCelPhone() != null ? updateCustomerDTO.getCelPhone() : customerFind.getCelPhone())
+                .birthDate(updateCustomerDTO.getBirthDate() != null ? updateCustomerDTO.getBirthDate() : customerFind.getBirthDate() )
                 .build();
 
-        return personRepository.save(customer);
-    }
+        return customerRepository.save(customer);
 
+    }
 }
