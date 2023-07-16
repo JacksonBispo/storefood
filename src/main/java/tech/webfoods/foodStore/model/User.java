@@ -19,8 +19,10 @@ import java.util.*;
 public class User  implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String uuid;
 
     private String login;
 
@@ -82,6 +84,6 @@ public class User  implements UserDetails {
 
     @PrePersist
     public void prePersist() {
-        this.id = UUID.randomUUID();
+        this.uuid= UUID.randomUUID().toString();
     }
 }

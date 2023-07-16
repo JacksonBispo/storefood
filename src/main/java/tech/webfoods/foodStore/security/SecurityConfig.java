@@ -34,8 +34,11 @@ public class SecurityConfig {
     private static final String[] ADMIN_MATCHERS = {
             "/api/v1/employee/save",
             "/api/v1/employee/employers",
-            "/api/v1/customer/customers"
     };
+
+
+
+
 
     @Autowired
     private SecurityFilter securityFilter;

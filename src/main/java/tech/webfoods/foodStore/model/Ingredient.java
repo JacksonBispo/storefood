@@ -18,8 +18,10 @@ import java.util.UUID;
 public class Ingredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String uuid;
 
     private String description;
 
@@ -27,6 +29,6 @@ public class Ingredient {
 
     @PrePersist
     public void prePersist() {
-        this.id = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 }

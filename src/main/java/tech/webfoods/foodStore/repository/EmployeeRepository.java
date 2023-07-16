@@ -7,10 +7,8 @@ import org.springframework.stereotype.Repository;
 import tech.webfoods.foodStore.model.Employee;
 import tech.webfoods.foodStore.model.Status;
 
-import java.util.UUID;
-
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Page<Employee> findByStatus(Pageable pageable, Status status);
 

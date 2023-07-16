@@ -16,8 +16,10 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
+
+    private String uuid;
 
     private LocalDate orderData;
 
@@ -31,6 +33,6 @@ public class Order {
 
     @PrePersist
     public void prePersist() {
-        this.id = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 }

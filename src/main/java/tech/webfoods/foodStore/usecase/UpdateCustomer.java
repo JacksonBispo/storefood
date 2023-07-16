@@ -5,11 +5,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.dto.UpdateCustomerDTO;
-import tech.webfoods.foodStore.dto.UpdateEmployeeDTO;
 import tech.webfoods.foodStore.model.Customer;
-import tech.webfoods.foodStore.model.Employee;
 import tech.webfoods.foodStore.repository.CustomerRepository;
-import tech.webfoods.foodStore.repository.EmployeeRepository;
 import tech.webfoods.foodStore.service.viaCep.ServiceClient;
 
 @AllArgsConstructor
@@ -24,6 +21,8 @@ public class UpdateCustomer {
 
 
     public Customer execute(UpdateCustomerDTO updateCustomerDTO) {
+
+
 
         var customerFind = customerRepository.findById(updateCustomerDTO.getId()).get();
 

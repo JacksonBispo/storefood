@@ -18,9 +18,15 @@ import java.util.UUID;
 public class Cargo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String uuid;
 
     private String name;
 
+    @PrePersist
+    public void prePersist() {
+        this.uuid = UUID.randomUUID().toString();
+    }
 }

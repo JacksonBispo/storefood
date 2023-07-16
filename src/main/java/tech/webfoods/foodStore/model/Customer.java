@@ -10,7 +10,6 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @DiscriminatorValue(Customer.CUSTOMER)
@@ -25,7 +24,7 @@ public class Customer extends Person {
 
     @Builder(builderMethodName = "customerBuilder")
     public Customer(
-            UUID id,
+            Long id,
             String name,
             String lastName,
             String cpf,

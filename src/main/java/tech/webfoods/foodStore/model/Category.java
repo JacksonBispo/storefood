@@ -18,9 +18,10 @@ import java.util.UUID;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    private String uuid;
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
@@ -28,6 +29,6 @@ public class Category {
 
     @PrePersist
     public void prePersist() {
-        this.id = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 }

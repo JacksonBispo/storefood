@@ -8,6 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import tech.webfoods.foodStore.converters.AddressConverter;
 import tech.webfoods.foodStore.model.Customer;
+import tech.webfoods.foodStore.model.Employee;
 import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.model.User;
 import tech.webfoods.foodStore.model.enums.Profile;
@@ -58,11 +59,46 @@ public class FoodStoreApplication implements CommandLineRunner {
                 .user(User.builder()
                         .login("jackson.novaes@live.com")
                         .pass(encoder.encode("11223344"))
-                        .roles(Set.of(Profile.ADMIN.getDescription()))
+                        .roles(Set.of(Profile.CLIENT.getDescription()))
                         .build())
                 .addressList(List.of(AddressConverter.toEntity(addressDTO)))
                 .build();
 
+        var customer3 = Customer.customerBuilder()
+                .name("Jackson")
+                .lastName("nos")
+                .cpf("39219796948")
+                .phone("9919199219")
+                .celPhone("8291892198")
+                .orders(null)
+                .birthDate(LocalDate.parse("1989-06-04"))
+                .status(Status.ACTIVE)
+                .user(User.builder()
+                        .login("jackson.novaes@gmail.com")
+                        .pass(encoder.encode("11223344"))
+                        .roles(Set.of(Profile.CLIENT.getDescription()))
+                        .build())
+                .addressList(List.of(AddressConverter.toEntity(addressDTO)))
+                .build();
+
+        var employee = Employee.employeeBuilder()
+                .name("Jackson")
+                .lastName("Novaes")
+                .cpf("39219796948")
+                .phone("9919199219")
+                .celPhone("8291892198")
+                .orders(null)
+                .admissionDate(LocalDate.now())
+                .status(Status.ACTIVE)
+                .user(User.builder()
+                        .login("jackson.novaes@iftech.com")
+                        .pass(encoder.encode("11223344"))
+                        .roles(Set.of(Profile.ADMIN.getDescription()))
+                        .build())
+                .addressList(List.of(AddressConverter.toEntity(addressDTO)))
+                .build();
+        employeeRepository.save(employee);
         customerRepository.save(customer);
+        customerRepository.save(customer3);
     }
 }

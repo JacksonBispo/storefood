@@ -23,8 +23,9 @@ public class Address implements Serializable {
     private static final long serialVersionUID = 2662999979467455549L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String uuid;
     private String number;
     private String name;
     private String postalCode;
@@ -43,6 +44,6 @@ public class Address implements Serializable {
 
     @PrePersist
     public void prePersist() {
-        this.id = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
     }
 }

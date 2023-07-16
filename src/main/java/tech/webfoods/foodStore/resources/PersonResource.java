@@ -16,8 +16,6 @@ import tech.webfoods.foodStore.converters.EmployeeConverter;
 import tech.webfoods.foodStore.dto.*;
 import tech.webfoods.foodStore.usecase.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/v1/")
 @AllArgsConstructor
@@ -72,14 +70,14 @@ public class PersonResource {
 
     @SecurityRequirement(name = "bearer-key")
     @GetMapping(value = "/customer/customers/{id}")
-    public ResponseEntity<CustomerDTO> detailCustomer(@PathVariable UUID id) {
+    public ResponseEntity<CustomerDTO> detailCustomer(@PathVariable Long id) {
         var customer = detailCustomer.execute(id);
         return ResponseEntity.ok(customer);
     }
 
     @SecurityRequirement(name = "bearer-key")
     @DeleteMapping(value = "/customer/customers/{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable UUID id) {
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
         var isRemoved = deleteCustomer.execute(id);
         if (isRemoved) {
             return ResponseEntity.status(HttpStatus.OK).body("Cliente excluído com sucesso.");
@@ -90,7 +88,7 @@ public class PersonResource {
 
     @SecurityRequirement(name = "bearer-key")
     @PutMapping(value = "/customer/customers/{id}")
-    public ResponseEntity<UpdateCustomerDTO> update(@PathVariable UUID id,
+    public ResponseEntity<UpdateCustomerDTO> update(@PathVariable Long id,
                                               @RequestBody @Valid UpdateCustomerDTO UpdateCustomerDTO,
                                               UriComponentsBuilder uriBuilder) {
         UpdateCustomerDTO.setId(id);
@@ -101,7 +99,7 @@ public class PersonResource {
 
     @SecurityRequirement(name = "bearer-key")
     @PutMapping(value = "/employer/employers/{id}")
-    public ResponseEntity<UpdateEmployeeDTO> update(@PathVariable UUID id,
+    public ResponseEntity<UpdateEmployeeDTO> update(@PathVariable Long id,
                                                     @RequestBody @Valid UpdateEmployeeDTO updateEmployeeDTO ,
                                                     UriComponentsBuilder uriBuilder) {
         updateEmployeeDTO.setId(id);
@@ -112,7 +110,7 @@ public class PersonResource {
 
     @SecurityRequirement(name = "bearer-key")
     @DeleteMapping(value = "/employee/employers/{id}")
-    public ResponseEntity<String> deleteCustomer(@PathVariable UUID id) {
+    public ResponseEntity<String> deleteCustomer(@PathVariable Long id) {
         var isRemoved = deleteEmployee.execute(id);
         if (isRemoved) {
             return ResponseEntity.status(HttpStatus.OK).body("Funcionario excluído com sucesso.");

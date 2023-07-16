@@ -9,7 +9,6 @@ import tech.webfoods.foodStore.model.Customer;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class CustomerConverter {
 

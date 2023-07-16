@@ -1,14 +1,14 @@
 package tech.webfoods.foodStore.converters;
 
 
-import tech.webfoods.foodStore.dto.*;
-import tech.webfoods.foodStore.model.Address;
+import tech.webfoods.foodStore.dto.AddressDTO;
+import tech.webfoods.foodStore.dto.EmployeeDTO;
+import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
+import tech.webfoods.foodStore.dto.UpdateEmployeeDTO;
 import tech.webfoods.foodStore.model.Cargo;
-import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.model.Employee;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

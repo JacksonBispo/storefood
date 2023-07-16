@@ -5,11 +5,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import tech.webfoods.foodStore.exceptions.AuthorizationException;
 import tech.webfoods.foodStore.exceptions.StandardError;
 
 @RestControllerAdvice
@@ -34,7 +34,7 @@ public class ControllerExceptionHandler {
         }
     }
 
-    @ExceptionHandler(AuthorizationServiceException.class)
+    @ExceptionHandler(AuthorizationException.class)
     public ResponseEntity<StandardError> authorization(ObjectNotFoundException e, HttpServletRequest req){
         StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(),e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);

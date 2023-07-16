@@ -11,7 +11,6 @@ import tech.webfoods.foodStore.model.enums.Profile;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
@@ -25,8 +24,8 @@ import java.util.stream.Collectors;
 @Table(name = "TB_PERSON")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String lastName;
     private String cpf;
@@ -58,8 +57,4 @@ public class Person {
         profiles.add(profile.getCod());
     }
 
-    @PrePersist
-    public void prePersist() {
-        this.id = UUID.randomUUID();
-    }
 }

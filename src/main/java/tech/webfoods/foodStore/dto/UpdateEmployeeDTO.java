@@ -1,14 +1,12 @@
 package tech.webfoods.foodStore.dto;
 
 import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +14,7 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 public class UpdateEmployeeDTO {
 
-    private UUID id;
+    private Long id;
 
     private String name;
 

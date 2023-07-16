@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.webfoods.foodStore.dto.AddressDTO;
-import tech.webfoods.foodStore.dto.CustomerDTO;
 import tech.webfoods.foodStore.dto.SaveCustomerDTO;
 import tech.webfoods.foodStore.model.Address;
 import tech.webfoods.foodStore.model.Customer;

@@ -4,15 +4,10 @@ package tech.webfoods.foodStore.usecase;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import tech.webfoods.foodStore.dto.UpdateCustomerDTO;
 import tech.webfoods.foodStore.dto.UpdateEmployeeDTO;
-import tech.webfoods.foodStore.model.Customer;
 import tech.webfoods.foodStore.model.Employee;
-import tech.webfoods.foodStore.repository.CustomerRepository;
 import tech.webfoods.foodStore.repository.EmployeeRepository;
 import tech.webfoods.foodStore.service.viaCep.ServiceClient;
-
-import java.util.Collections;
 
 @AllArgsConstructor
 @Service
