@@ -11,7 +11,6 @@ public class ProductConverter {
                 .description(product.getDescription())
                 .price(product.getPrice())
                 .ingredients(product.getIngredients().stream().map(IngredienteConverter::toDTO).toList())
-                .categoryName(CategoryConverter.toDTO(product.getCategory()).getName())
                 .build();
     }
 

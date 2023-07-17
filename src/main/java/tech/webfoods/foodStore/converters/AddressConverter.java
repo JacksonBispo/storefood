@@ -30,6 +30,7 @@ public class AddressConverter {
 
     public static Address toEntity(AddressDTO address) {
         return Address.builder()
+                .id(null)
                 .name(address.getLogradouro())
                 .complemento(address.getComplemento())
                 .postalCode(address.getCep())

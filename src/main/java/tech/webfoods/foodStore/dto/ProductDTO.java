@@ -22,7 +22,5 @@ public class ProductDTO {
 
     private Long category;
 
-    private String categoryName;
-
     private List<IngredientDTO> ingredients = new ArrayList<>();
 }

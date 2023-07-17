@@ -12,6 +12,7 @@ import tech.webfoods.foodStore.model.Status;
 import tech.webfoods.foodStore.model.User;
 import tech.webfoods.foodStore.model.enums.Profile;
 import tech.webfoods.foodStore.repository.CustomerRepository;
+import tech.webfoods.foodStore.repository.UserRepository;
 import tech.webfoods.foodStore.service.viaCep.ServiceClient;
 
 import java.util.Collections;
@@ -23,6 +24,8 @@ import java.util.Set;
 public class SaveCustomer {
 
     private final CustomerRepository personRepository;
+
+    private final UserRepository userRepository;
 
     private final ServiceClient serviceClient;
 
@@ -68,7 +71,7 @@ public class SaveCustomer {
                 .build();
         customer.setUser(user);
         address.setPerson(customer);
-
+        userRepository.save(user);
         return personRepository.save(customer);
     }
 

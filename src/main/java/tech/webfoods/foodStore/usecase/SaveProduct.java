@@ -3,7 +3,6 @@ package tech.webfoods.foodStore.usecase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import tech.webfoods.foodStore.converters.IngredienteConverter;
 import tech.webfoods.foodStore.converters.ProductConverter;
 import tech.webfoods.foodStore.dto.ProductDTO;
 import tech.webfoods.foodStore.repository.IngredientRepository;
@@ -18,12 +17,10 @@ public class SaveProduct {
     private final IngredientRepository ingredientRepository;
 
     public ResponseEntity<ProductDTO> execute(ProductDTO productDTO) {
-        productDTO.getIngredients().forEach(ingredientDTO -> {
-            ingredientRepository.save(IngredienteConverter.toEntity(ingredientDTO));
-        });
 
-        productRepository.save(ProductConverter.toEntity(productDTO));
-
+        var product = ProductConverter.toEntity(productDTO);
+         productRepository.save(product);
+         ingredientRepository.saveAll(product.getIngredients());
         return ResponseEntity.ok().build();
     }
 }

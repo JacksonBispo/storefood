@@ -17,7 +17,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private String uuid;
 
@@ -33,6 +33,6 @@ public class Order {
 
     @PrePersist
     public void prePersist() {
-        this.uuid = UUID.randomUUID().toString();
+        this.uuid  = UUID.randomUUID().toString();
     }
 }

@@ -10,11 +10,14 @@ import tech.webfoods.foodStore.dto.SaveEmployeeDTO;
 import tech.webfoods.foodStore.exceptions.FieldNotValidException;
 import tech.webfoods.foodStore.model.*;
 import tech.webfoods.foodStore.model.enums.Profile;
+import tech.webfoods.foodStore.repository.AddressRepository;
 import tech.webfoods.foodStore.repository.CargoRepository;
 import tech.webfoods.foodStore.repository.EmployeeRepository;
+import tech.webfoods.foodStore.repository.UserRepository;
 import tech.webfoods.foodStore.service.viaCep.ServiceClient;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +31,10 @@ public class SaveEmployee {
     private final CargoRepository cargoRepository;
 
     private final ServiceClient serviceClient;
+
+    private final UserRepository userRepository;
+
+    private final AddressRepository addressRepository;
 
     private final PasswordEncoder encoder;
 
@@ -76,8 +83,11 @@ public class SaveEmployee {
                 .build();
         employee.setUser(user);
         employee.setCargo(newCargo);
+        userRepository.save(user);
         cargoRepository.save(employee.getCargo());
-        return personRepository.save(employee);
+        var person =  personRepository.save(employee);
+        addressRepository.saveAll(Arrays.asList(address));
+        return person;
     }
 
     private void validateFields(SaveEmployeeDTO employeeDTO) {

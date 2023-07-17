@@ -34,11 +34,12 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
 
-    @OneToMany(mappedBy = "person", orphanRemoval = false, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "person", orphanRemoval = false)
     private List<Address> addressList;
 
 
